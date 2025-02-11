@@ -76,8 +76,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto mx-lg-auto py-0">
-                <a style="font-family: Times New Roman" href="index.html" class="nav-item nav-link active">Home</a>
-                <a style="font-family: Times New Roman"  href="about.html" class="nav-item nav-link">FAI</a>
+                <a style="font-family: Times New Roman" href="index.html" class="nav-item nav-link">Home</a>
+                <a style="font-family: Times New Roman"  href="about.html" class="nav-item nav-link active">FAI</a>
                 <a style="font-family: Times New Roman"  href="menu.html" class="nav-item nav-link">Jollibee</a>
                 <a style="font-family: Times New Roman"  href="menu2.html" class="nav-item nav-link">Mcdonalds</a>
                 <a style="font-family: Times New Roman"  href="menu3.html" class="nav-item nav-link">KFC</a>
