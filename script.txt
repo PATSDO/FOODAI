@@ -1,3 +1,7 @@
+about.html
+<?php include 'db_connection.php'; ?> 
+
+
 <script>
         async function sendMessage() {
         const inputField = document.getElementById("user-input");
