@@ -116,46 +116,46 @@
 
 
      <!-- Chatbot Section -->
-<h2 class="text-center text-primary">AI Chatbot</h2>
-<div class="chat-container border rounded p-3 bg-light" style="max-width: 600px; margin: auto;">
-    <div class="chat-box" id="chat-box" style="height: 300px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; background: white;"></div>
-    <div class="d-flex mt-2">
-        <input type="text" id="user-input" class="form-control me-2" placeholder="Type a message..." onkeypress="handleKeyPress(event)">
-        <button class="btn btn-primary" onclick="sendMessage()">Send</button>
+    <h2 class="text-center text-primary">AI Chatbot</h2>
+    <div class="chat-container border rounded p-3 bg-dark" style="max-width: 800px; margin: auto;">
+        <div class="chat-box" id="chat-box" style="height: 300px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; background: white;"></div>
+        <div class="d-flex mt-2">
+            <input type="text" id="user-input" class="form-control me-2" placeholder="Type a message..." onkeypress="handleKeyPress(event)">
+            <button class="btn btn-primary" onclick="sendMessage()">Send</button>
+        </div>
     </div>
-</div>
 
-<script>
-    async function sendMessage() {
-        const inputField = document.getElementById("user-input");
-        const message = inputField.value.trim();
-        if (!message) return;
+    <script>
+        async function sendMessage() {
+            const inputField = document.getElementById("user-input");
+            const message = inputField.value.trim();
+            if (!message) return;
 
-        const chatBox = document.getElementById("chat-box");
-        chatBox.innerHTML += `<div class='text-end text-primary mb-2'><strong>You:</strong> ${message}</div>`;
-        inputField.value = ""; 
-        chatBox.scrollTop = chatBox.scrollHeight;
-
-        try {
-            const response = await fetch("http://localhost:5000/chat", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ message: message })
-            });
-
-            const data = await response.json();
-            chatBox.innerHTML += `<div class='text-start text-secondary mb-2'><strong>fai:</strong> ${data.message}</div>`;
+            const chatBox = document.getElementById("chat-box");
+            chatBox.innerHTML += `<div class='text-end text-dark mb-2'><strong>You:</strong> ${message}</div>`;
+            inputField.value = ""; 
             chatBox.scrollTop = chatBox.scrollHeight;
-        } catch (error) {
-            chatBox.innerHTML += `<div class='text-start text-danger mb-2'><strong>fai:</strong> Error: Could not reach server.</div>`;
-            chatBox.scrollTop = chatBox.scrollHeight;
+
+            try {
+                const response = await fetch("http://localhost:5000/chat", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ message: message })
+                });
+
+                const data = await response.json();
+                chatBox.innerHTML += `<div class='text-start fai-text mb-2'><strong>fai:</strong> ${data.message}</div>`;
+                chatBox.scrollTop = chatBox.scrollHeight;
+            } catch (error) {
+                chatBox.innerHTML += `<div class='text-start text-danger mb-2'><strong>fai:</strong> Error: Could not reach server.</div>`;
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
         }
-    }
 
-    function handleKeyPress(event) {
-        if (event.key === "Enter") sendMessage();
-    }
-</script>
+        function handleKeyPress(event) {
+            if (event.key === "Enter") sendMessage();
+        }
+    </script>
 
    
 
