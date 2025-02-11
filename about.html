@@ -126,6 +126,12 @@
     </div>
 
     <script>
+        window.onload = function() {
+            const chatBox = document.getElementById("chat-box");
+            chatBox.innerHTML += `<div class='text-start fai-text mb-2'><strong>fai:</strong> Hi there! :) I'm Fai, your friendly Food AI assistant! I know that dealing with food allergies can be tricky, but don't worry—I'm here to help! I can guide you on which meals are safe for you and which to avoid. Just tell me your allergies, and I'll find the best options for you.</div>`;
+            chatBox.innerHTML += `<div class='text-start fai-text mb-2'><strong>fai:</strong> Before we start, what are your allergies?</div>`;
+        };
+
         async function sendMessage() {
             const inputField = document.getElementById("user-input");
             const message = inputField.value.trim();
