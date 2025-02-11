@@ -6,6 +6,7 @@
     <title>Food AI</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
+    <link href="https://img.icons8.com/ios/50/null/food-bar.png" rel="icon">
 
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
@@ -150,125 +151,50 @@ Best Chef by Region</p>
     </div>
     <!-- About End -->
 
-<!-- Allergy Survey Start -->
-<div class="container my-5">
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <div class="card shadow">
-        <div class="card-header bg-primary text-white text-center">
-          <h4 style="font-family: Times New Roman" >kindly answer the following questions below</h4>
+
+     <!-- Chatbot Section -->
+    <h2 class="text-center text-primary">AI Chatbot</h2>
+    <div class="chat-container border rounded p-3 bg-dark" style="max-width: 800px; margin: auto;">
+        <div class="chat-box" id="chat-box" style="height: 300px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; background: white;"></div>
+        <div class="d-flex mt-2">
+            <input type="text" id="user-input" class="form-control me-2" placeholder="Type a message..." onkeypress="handleKeyPress(event)">
+            <button class="btn btn-primary" onclick="sendMessage()">Send</button>
         </div>
-        <div class="card-body">
-          <form id="allergySurveyForm">
-            <div class="mb-3">
-              <label for="name" class="form-label">Name</label>
-              <input type="text" class="form-control" id="name" placeholder="Your full name" required>
-            </div>
-            <div class="mb-3">
-              <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
-            </div>
-            <div class="mb-3">
-              <label for="allergens" class="form-label">Known Allergens (separate with commas)</label>
-              <input type="text" class="form-control" id="allergens" placeholder="e.g. peanuts, shellfish, dairy">
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Select Common Allergens:</label>
-              <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="togglePeanuts" value="Peanuts">
-                <label class="form-check-label" for="togglePeanuts">Peanuts</label>
-              </div>
-              <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="toggleShellfish" value="Shellfish">
-                <label class="form-check-label" for="toggleShellfish">Shellfish</label>
-              </div>
-              <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="toggleDairy" value="Dairy">
-                <label class="form-check-label" for="toggleDairy">Dairy</label>
-              </div>
-              <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="toggleGluten" value="Gluten">
-                <label class="form-check-label" for="toggleGluten">Gluten</label>
-              </div>
-              <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="toggleSoy" value="Soy">
-                <label class="form-check-label" for="toggleSoy">Soy</label>
-              </div>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">How severe are your allergic reactions?</label>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="reactionSeverity" id="severityMild" value="Mild" required>
-                <label class="form-check-label" for="severityMild">Mild</label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="reactionSeverity" id="severityModerate" value="Moderate" required>
-                <label class="form-check-label" for="severityModerate">Moderate</label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="reactionSeverity" id="severitySevere" value="Severe" required>
-                <label class="form-check-label" for="severitySevere">Severe</label>
-              </div>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Do you carry an epinephrine auto-injector?</label>
-              <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="carryEpi" value="Yes">
-                <label class="form-check-label" for="carryEpi">Yes, I do</label>
-              </div>
-            </div>
-            <div class="mb-3">
-              <label for="dietaryRestrictions" class="form-label">Other Dietary Restrictions</label>
-              <input type="text" class="form-control" id="dietaryRestrictions" placeholder="e.g. vegetarian, vegan, halal">
-            </div>
-            <div class="mb-3">
-              <label for="mealsPerDay" class="form-label">How many meals do you have per day?</label>
-              <select class="form-select" id="mealsPerDay" required>
-                <option value="" disabled selected>Select one</option>
-                <option value="2">2 Meals</option>
-                <option value="3">3 Meals</option>
-                <option value="4">4 Meals</option>
-                <option value="5">5 Meals</option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="healthGoals" class="form-label">What are your primary health goals?</label>
-              <select class="form-select" id="healthGoals" required>
-                <option value="" disabled selected>Select one</option>
-                <option value="weight_loss">Weight Loss</option>
-                <option value="muscle_gain">Muscle Gain</option>
-                <option value="maintenance">Maintenance</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="activityLevel" class="form-label">What is your current activity level?</label>
-              <select class="form-select" id="activityLevel" required>
-                <option value="" disabled selected>Select one</option>
-                <option value="sedentary">Sedentary</option>
-                <option value="light">Lightly Active</option>
-                <option value="moderate">Moderately Active</option>
-                <option value="active">Very Active</option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="additionalInfo" class="form-label">Additional Information</label>
-              <textarea class="form-control" id="additionalInfo" rows="3" placeholder="Any other details you'd like to share"></textarea>
-            </div>
-            <div class="text-center">
-              <button style="font-family: Times New Roman"  type="submit" class="btn btn-primary">Submit Survey</button>
-            </div>
-          </form>
-          <div id="analysisResult" class="mt-4"></div>
-        </div>
-      </div>
     </div>
-  </div>
-</div>
-<!-- Allergy Survey End -->
 
-    
+    <script>
+        async function sendMessage() {
+            const inputField = document.getElementById("user-input");
+            const message = inputField.value.trim();
+            if (!message) return;
 
+            const chatBox = document.getElementById("chat-box");
+            chatBox.innerHTML += `<div class='text-end text-dark mb-2'><strong>You:</strong> ${message}</div>`;
+            inputField.value = ""; 
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            try {
+                const response = await fetch("http://localhost:5000/chat", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ message: message })
+                });
+
+                const data = await response.json();
+                chatBox.innerHTML += `<div class='text-start fai-text mb-2'><strong>fai:</strong> ${data.message}</div>`;
+                chatBox.scrollTop = chatBox.scrollHeight;
+            } catch (error) {
+                chatBox.innerHTML += `<div class='text-start text-danger mb-2'><strong>fai:</strong> Error: Could not reach server.</div>`;
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === "Enter") sendMessage();
+        }
+    </script>
+
+   
 
  <!-- Footer Start -->
     <div class="container-fluid bg-img text-secondary" style="margin-top: 90px">
