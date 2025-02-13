@@ -259,6 +259,11 @@ h6,
     background-size: cover;
 }
 
+.bg-offer-mcdonalds {
+    background: linear-gradient(rgba(43, 40, 37, .9), rgba(43, 40, 37, .9)), url(../img/McDonalds-Store.jpeg) center center no-repeat;
+    background-size: cover;
+}
+
 .team-item img {
     transition: .5s;
 }
