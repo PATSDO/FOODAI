@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Food AI</title>
+    <title>Food AI by Cipriano, Bandal, De Ocampo, Gesmundo, & Pua</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <link href="https://img.icons8.com/ios/50/null/food-bar.png" rel="icon">
@@ -76,7 +76,8 @@
             <div class="navbar-nav ms-auto mx-lg-auto py-0">
                 <a style="font-family: Times New Roman" href="index.html" class="nav-item nav-link">Home</a>
                 <a style="font-family: Times New Roman"  href="about.html" class="nav-item nav-link active">FAI</a>
-                <a style="font-family: Times New Roman"  href="menu2.html" class="nav-item nav-link">McDonalds</a>
+                <a style="font-family: Times New Roman"  href="menu.html" class="nav-item nav-link">Jollibee</a>
+                <a style="font-family: Times New Roman"  href="menu2.html" class="nav-item nav-link">Mcdonalds</a>
                 <a style="font-family: Times New Roman"  href="menu3.html" class="nav-item nav-link">KFC</a>
                 <div class="nav-item dropdown">
                     <a style="font-family: Times New Roman"  href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Orders</a>
@@ -96,9 +97,6 @@
         <div class="row">
             <div class="col-12 text-center">
                 <h1 style="font-family: Times New Roman"class="display-4 text-uppercase text-white">FAI</h1>
-                <a href="">Home</a>
-                <i class="far fa-square text-primary px-2"></i>
-                <a href="">About</a>
             </div>
         </div>
     </div>
@@ -109,43 +107,8 @@
     <div class="container-fluid pt-5">
         <div class="container">
             <div class="section-title position-relative text-center mx-auto mb-5 pb-3" style="max-width: 600px;">
-                <h2 class="text-primary font-secondary">FAI</h2>
-                <h1 class="display-4 text-uppercase">Welcome To Soulfood</h1>
-            </div>
-            <div class="row gx-5">
-                <div class="col-lg-5 mb-5 mb-lg-0" style="min-height: 400px;">
-                    <div class="position-relative h-100">
-                        <img class="position-absolute w-100 h-100" src="https://images.unsplash.com/photo-1581600140682-d4e68c8cde32?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=388&q=80" style="object-fit: cover;">
-                    </div>
-                </div>
-                <div class="col-lg-6 pb-5">
-                    <h4 class="mb-4">A remarkable dining experience is provided by The Soul Food Manila, which mixes delectable cuisine with a pleasant environment.</h4>
-                    <p class="mb-5">We offer international cuisine, with a focus on our house-smoked meats, which require 8 to 12 hours of carefully monitored cooking using Mahogany or Santol wood. This gives our meats a deep, rich flavor and smoky scent. The majority of the items on our menu, including our soup, dressings, breads, sauces, dips, and thick-cut bacon, are made from scratch, reflecting our commitment to serving our guests wholesome, flavorful food without cutting corners. The Soul Food Manila's owners have a long history in the Intramuros, Manila, food sector and have operated several franchises throughout the Philippines. Every dish offered at The Soul Cooking Manila now still reflects that knowledge and love for great food. The Soul Food Manila offers a variety of dishes to suit every taste, whether you're in the mood for a filling plate of slow-smoked ribs or a light and healthy salad. It is the ideal setting for a delicious lunch with friends and family, a milestone celebration, or a special date night.
-
-​</p>
-                    <div class="row g-5">
-                        <div class="col-sm-6">
-                            <div class="d-flex align-items-center justify-content-center bg-primary border-inner mb-4" style="width: 90px; height: 90px;">
-                                <i class="fa fa-heartbeat fa-2x text-white"></i>
-                            </div>
-                            <h4 class="text-uppercase">100% Healthy</h4>
-                            <p class="mb-0">“Your diet is a bank account. Good food choices are good investments.” -Bethenny Frankel</p>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="d-flex align-items-center justify-content-center bg-primary border-inner mb-4" style="width: 90px; height: 90px;">
-                                <i class="fa fa-award fa-2x text-white"></i>
-                            </div>
-                            <h4 class="text-uppercase">Award Winning</h4>
-                            <p class="mb-0">Lifetime Achievement Award
-Outstanding Chef
-Outstanding Restaurant
-Rising Star Chef of the Year
-Best New Restaurant
-Outstanding Pastry Chef
-Best Chef by Region</p>
-                        </div>
-                    </div>
-                </div>
+                <h1 class="text-primary font-secondary">Hello I am FAI!</h1>
+                <h4 class="display-6 text-uppercase">I'll be your assistant today.</h4>
             </div>
         </div>
     </div>
@@ -163,6 +126,12 @@ Best Chef by Region</p>
     </div>
 
     <script>
+        window.onload = function() {
+            const chatBox = document.getElementById("chat-box");
+            chatBox.innerHTML += `<div class='text-start fai-text mb-2'><strong>fai:</strong> Hi there! :) I'm Fai, your friendly Food AI assistant! I know that dealing with food allergies can be tricky, but don't worry—I'm here to help! I can guide you on which meals are safe for you and which to avoid. Just tell me your allergies, and I'll find the best options for you.</div>`;
+            chatBox.innerHTML += `<div class='text-start fai-text mb-2'><strong>fai:</strong> Before we start, what are your allergies?</div>`;
+        };
+
         async function sendMessage() {
             const inputField = document.getElementById("user-input");
             const message = inputField.value.trim();
