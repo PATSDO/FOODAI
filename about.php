@@ -128,8 +128,7 @@
     <script>
         window.onload = function() {
             const chatBox = document.getElementById("chat-box");
-            chatBox.innerHTML += `<div class='text-start fai-text mb-2'><strong>fai:</strong> Hi there! :) I'm Fai, your friendly Food AI assistant! I know that dealing with food allergies can be tricky, but don't worry—I'm here to help! I can guide you on which meals are safe for you and which to avoid. Just tell me your allergies, and I'll find the best options for you.</div>`;
-            chatBox.innerHTML += `<div class='text-start fai-text mb-2'><strong>fai:</strong> Before we start, what are your allergies?</div>`;
+            chatBox.innerHTML += `<div class='text-start fai-text mb-2'><strong>fai:</strong> Hi there! I'm Fai, your Food Allergy Assistant. I can check menu items from Jollibee, McDonalds, and KFC against your allergies. How can I help?</div>`;
         };
 
         async function sendMessage() {
@@ -139,9 +138,8 @@
 
             const chatBox = document.getElementById("chat-box");
             chatBox.innerHTML += `<div class='text-end text-dark mb-2'><strong>You:</strong> ${message}</div>`;
-            inputField.value = ""; 
-            chatBox.scrollTop = chatBox.scrollHeight;
-
+            inputField.value = "";
+            
             try {
                 const response = await fetch("http://localhost:5000/chat", {
                     method: "POST",
@@ -151,11 +149,10 @@
 
                 const data = await response.json();
                 chatBox.innerHTML += `<div class='text-start fai-text mb-2'><strong>fai:</strong> ${data.message}</div>`;
-                chatBox.scrollTop = chatBox.scrollHeight;
             } catch (error) {
-                chatBox.innerHTML += `<div class='text-start text-danger mb-2'><strong>fai:</strong> Error: Could not reach server.</div>`;
-                chatBox.scrollTop = chatBox.scrollHeight;
+                chatBox.innerHTML += `<div class='text-start text-danger mb-2'><strong>fai:</strong> Error connecting to assistant</div>`;
             }
+            chatBox.scrollTop = chatBox.scrollHeight;
         }
 
         function handleKeyPress(event) {
