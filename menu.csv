@@ -1,26 +1,26 @@
-"id","restaurant_name","food_name","allergen","description"
-"1","McDonalds","Big Mac","Wheat, Soy, Egg, Milk, Sesame","Classic burger with two beef patties, special sauce, lettuce, cheese, pickles, onions on a sesame seed bun"
-"2","McDonalds","Cheeseburger","Wheat, Soy, Milk","A beef patty with cheese, pickles, onions, ketchup, and mustard on a bun"
-"3","McDonalds","Quarter Pounder with Cheese","Wheat, Soy, Milk","A quarter-pound beef patty with cheese, pickles, onions, ketchup, and mustard on a bun"
-"4","McDonalds","McChicken","Wheat, Soy, Egg, Milk","Crispy chicken patty with lettuce and mayo on a bun"
-"5","McDonalds","Filet-O-Fish","Wheat, Soy, Egg, Milk, Fish","Breaded fish fillet with tartar sauce and cheese on a steamed bun"
-"6","McDonalds","French Fries","May contain traces of: Wheat, Soy","Golden crispy fries, may be cooked in shared oil"
-"7","McDonalds","Apple Pie","Wheat, Soy","Baked apple pie with a crispy crust"
-"8","McDonalds","Chicken McNuggets","Wheat, Soy","Breaded chicken nuggets with dipping sauce"
-"9","McDonalds","McFlurry (Oreo)","Milk, Wheat, Soy","Soft-serve ice cream mixed with Oreo pieces"
-"10","McDonalds","Sundae (Chocolate/Caramel/Strawberry)","Milk","Vanilla soft-serve with syrup topping"
-"11","McDonalds","Milkshakes","Milk","Blended milkshake with different flavors"
-"12","McDonalds","Iced Coffee","Milk","Cold coffee with milk and sweetener"
-"13","Jollibee","Yumburger","Wheat, Soy, Egg, Milk","A simple burger with Jollibee’s signature dressing"
-"14","Jollibee","Cheesy Yumburger","Wheat, Soy, Egg, Milk","Yumburger with melted cheese"
-"15","Jollibee","Champ Burger","Wheat, Soy, Egg, Milk","Bigger beef patty with special dressing"
-"16","Jollibee","Chickenjoy","Wheat, Soy, Egg","Crispy fried chicken served with rice and gravy"
-"17","Jollibee","Jolly Spaghetti","Wheat, Soy, Milk","Sweet-style spaghetti with hotdogs and cheese"
-"18","Jollibee","Burger Steak","Wheat, Soy","Beef patties served with mushroom gravy and rice"
-"19","Jollibee","Jolly Fries","May contain traces of: Wheat, Soy","Crispy fries, cooked in shared oil"
-"20","Jollibee","Mashed Potato (Gravy)","Wheat, Soy, Milk","Mashed potatoes topped with Jollibee’s signature gravy"
-"21","Jollibee","Peach Mango Pie","Wheat, Soy","Crispy turnover filled with peach and mango filling"
-"22","Jollibee","Sundae (Chocolate/Caramel)","Milk","Vanilla soft-serve with syrup topping"
-"23","Jollibee","Iced Coffee","Milk","Cold coffee with milk and sweetener"
-"24","KFC","Original Recipe Chicken","Wheat, Soy, Egg","KFC’s signature seasoned fried chicken"
-"25","KFC","Hot & Crispy Chicken","Wheat, Soy, Egg","Spicy crispy fried chicken"
+restaurant_name,food_name,category,allergens,price,description
+McDonalds,Big Mac,Burger,"wheat,soy,egg,milk,sesame",5.99,Classic burger with two beef patties special sauce lettuce cheese pickles onions on sesame seed bun
+McDonalds,Cheeseburger,Burger,"wheat,soy,milk",1.99,A beef patty with cheese pickles onions ketchup and mustard on a bun
+McDonalds,Quarter Pounder with Cheese,Burger,"wheat,soy,milk",4.99,A quarter-pound beef patty with cheese pickles onions ketchup and mustard on a bun
+McDonalds,McChicken,Chicken,"wheat,soy,egg,milk",2.99,Crispy chicken patty with lettuce and mayo on a bun
+McDonalds,Filet-O-Fish,Seafood,"wheat,soy,egg,milk,fish",4.49,Breaded fish fillet with tartar sauce and cheese on a steamed bun
+McDonalds,French Fries,Sides,"wheat_trace,soy_trace",2.99,Golden crispy fries may be cooked in shared oil
+McDonalds,Apple Pie,Dessert,"wheat,soy",1.99,Baked apple pie with a crispy crust
+McDonalds,Chicken McNuggets,Chicken,"wheat,soy",4.99,Breaded chicken nuggets with dipping sauce
+McDonalds,McFlurry (Oreo),Dessert,"milk,wheat,soy",3.99,Soft-serve ice cream mixed with Oreo pieces
+McDonalds,Sundae,Dessert,milk,2.99,Vanilla soft-serve with syrup topping
+McDonalds,Milkshakes,Beverage,milk,3.99,Blended milkshake with different flavors
+McDonalds,Iced Coffee,Beverage,milk,2.49,Cold coffee with milk and sweetener
+Jollibee,Yumburger,Burger,"wheat,soy,egg,milk",2.99,A simple burger with Jollibee's signature dressing
+Jollibee,Cheesy Yumburger,Burger,"wheat,soy,egg,milk",3.49,Yumburger with melted cheese
+Jollibee,Champ Burger,Burger,"wheat,soy,egg,milk",4.99,Bigger beef patty with special dressing
+Jollibee,Chickenjoy,Chicken,"wheat,soy,egg",5.99,Crispy fried chicken served with rice and gravy
+Jollibee,Jolly Spaghetti,Pasta,"wheat,soy,milk",4.49,Sweet-style spaghetti with hotdogs and cheese
+Jollibee,Burger Steak,Beef,"wheat,soy",4.99,Beef patties served with mushroom gravy and rice
+Jollibee,Jolly Fries,Sides,"wheat_trace,soy_trace",2.49,Crispy fries cooked in shared oil
+Jollibee,Mashed Potato,Sides,"wheat,soy,milk",2.49,Mashed potatoes topped with Jollibee's signature gravy
+Jollibee,Peach Mango Pie,Dessert,"wheat,soy",2.49,Crispy turnover filled with peach and mango filling
+Jollibee,Sundae,Dessert,milk,2.49,Vanilla soft-serve with syrup topping
+Jollibee,Iced Coffee,Beverage,milk,2.49,Cold coffee with milk and sweetener
+KFC,Original Recipe Chicken,Chicken,"wheat,soy,egg",5.99,KFC's signature seasoned fried chicken
+KFC,Hot & Crispy Chicken,Chicken,"wheat,soy,egg",5.99,Spicy crispy fried chicken
