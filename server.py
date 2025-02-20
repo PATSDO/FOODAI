@@ -94,7 +94,7 @@ def chat_handler():
         try:
             response = requests.post(
                 OLLAMA_URL,
-                json={"model": "llama3.2:1b", "prompt": prompt, "stream": False, "temperature": 0.85},
+                json={"model": "llama3.2:1b", "prompt": prompt, "stream": False, "temperature": 0.60},
                 timeout=10  # Add timeout for network stability
             )
             response.raise_for_status()  # Raise error for non-2xx HTTP status codes

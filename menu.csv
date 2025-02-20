@@ -1,26 +1,17 @@
-restaurant_name,food_name,category,allergens,price,description
-McDonalds,Big Mac,Burger,"wheat,soy,egg,milk,sesame",5.99,Classic burger with two beef patties special sauce lettuce cheese pickles onions on sesame seed bun
-McDonalds,Cheeseburger,Burger,"wheat,soy,milk",1.99,A beef patty with cheese pickles onions ketchup and mustard on a bun
-McDonalds,Quarter Pounder with Cheese,Burger,"wheat,soy,milk",4.99,A quarter-pound beef patty with cheese pickles onions ketchup and mustard on a bun
-McDonalds,McChicken,Chicken,"wheat,soy,egg,milk",2.99,Crispy chicken patty with lettuce and mayo on a bun
-McDonalds,Filet-O-Fish,Seafood,"wheat,soy,egg,milk,fish",4.49,Breaded fish fillet with tartar sauce and cheese on a steamed bun
-McDonalds,French Fries,Sides,"wheat_trace,soy_trace",2.99,Golden crispy fries may be cooked in shared oil
-McDonalds,Apple Pie,Dessert,"wheat,soy",1.99,Baked apple pie with a crispy crust
-McDonalds,Chicken McNuggets,Chicken,"wheat,soy",4.99,Breaded chicken nuggets with dipping sauce
-McDonalds,McFlurry (Oreo),Dessert,"milk,wheat,soy",3.99,Soft-serve ice cream mixed with Oreo pieces
-McDonalds,Sundae,Dessert,milk,2.99,Vanilla soft-serve with syrup topping
-McDonalds,Milkshakes,Beverage,milk,3.99,Blended milkshake with different flavors
-McDonalds,Iced Coffee,Beverage,milk,2.49,Cold coffee with milk and sweetener
-Jollibee,Yumburger,Burger,"wheat,soy,egg,milk",2.99,A simple burger with Jollibee's signature dressing
-Jollibee,Cheesy Yumburger,Burger,"wheat,soy,egg,milk",3.49,Yumburger with melted cheese
-Jollibee,Champ Burger,Burger,"wheat,soy,egg,milk",4.99,Bigger beef patty with special dressing
-Jollibee,Chickenjoy,Chicken,"wheat,soy,egg",5.99,Crispy fried chicken served with rice and gravy
-Jollibee,Jolly Spaghetti,Pasta,"wheat,soy,milk",4.49,Sweet-style spaghetti with hotdogs and cheese
-Jollibee,Burger Steak,Beef,"wheat,soy",4.99,Beef patties served with mushroom gravy and rice
-Jollibee,Jolly Fries,Sides,"wheat_trace,soy_trace",2.49,Crispy fries cooked in shared oil
-Jollibee,Mashed Potato,Sides,"wheat,soy,milk",2.49,Mashed potatoes topped with Jollibee's signature gravy
-Jollibee,Peach Mango Pie,Dessert,"wheat,soy",2.49,Crispy turnover filled with peach and mango filling
-Jollibee,Sundae,Dessert,milk,2.49,Vanilla soft-serve with syrup topping
-Jollibee,Iced Coffee,Beverage,milk,2.49,Cold coffee with milk and sweetener
-KFC,Original Recipe Chicken,Chicken,"wheat,soy,egg",5.99,KFC's signature seasoned fried chicken
-KFC,Hot & Crispy Chicken,Chicken,"wheat,soy,egg",5.99,Spicy crispy fried chicken
+restaurant,food,category,allergens,price,description  
+McDonalds,Big Mac | McChicken,Burger | Chicken,"wheat,soy,egg,milk",5.99 | 2.99,Beef patties with special sauce, lettuce, cheese, pickles, onions on a sesame bun | Crispy chicken with lettuce, mayo on a bun  
+McDonalds,Cheeseburger | Quarter Pounder,Burger,"wheat,soy,milk",1.99 | 4.99,Beef patty with cheese, pickles, onions, ketchup, mustard on a bun  
+McDonalds,Filet-O-Fish,Seafood,"wheat,soy,egg,milk,fish",4.49,Breaded fish fillet with tartar sauce, cheese on a steamed bun  
+McDonalds,French Fries | Jolly Fries,Sides,"wheat_trace,soy_trace",2.99 | 2.49,Crispy fries, may be cooked in shared oil  
+McDonalds,Apple Pie | Peach Mango Pie,Dessert,"wheat,soy",1.99 | 2.49,Baked apple pie with crispy crust | Crispy turnover with peach-mango filling  
+McDonalds,Chicken McNuggets,Chicken,"wheat,soy",4.99,Breaded chicken nuggets  
+McDonalds,McFlurry (Oreo) | Milkshakes | Iced Coffee,Dessert | Beverage,"milk,wheat,soy",3.99 | 3.99 | 2.49,Soft-serve ice cream with Oreo pieces | Blended milkshake in various flavors | Cold coffee with milk, sweetener  
+McDonalds,Sundae,Dessert,milk,2.99,Vanilla soft-serve with syrup  
+Jollibee,Yumburger | Cheesy Yumburger | Champ Burger,Burger,"wheat,soy,egg,milk",2.99 | 3.49 | 4.99,Burgers with signature dressing, some with cheese  
+Jollibee,Chickenjoy,Chicken,"wheat,soy,egg",5.99,Crispy fried chicken with rice, gravy  
+Jollibee,Jolly Spaghetti,Pasta,"wheat,soy,milk",4.49,Sweet-style spaghetti with hotdogs, cheese  
+Jollibee,Burger Steak,Beef,"wheat,soy",4.99,Beef patties with mushroom gravy, rice  
+Jollibee,Sundae,Dessert,milk,2.49,Vanilla soft-serve with syrup  
+Jollibee,Iced Coffee,Beverage,milk,2.49,Cold coffee with milk, sweetener  
+KFC,Original Recipe Chicken | Hot & Crispy Chicken,Chicken,"wheat,soy,egg",5.99,Seasoned fried chicken, original or spicy  
+KFC,Mashed Potato,Sides,"wheat,soy,milk",2.49,Mashed potatoes with gravy  

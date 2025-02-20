@@ -10,10 +10,11 @@
     "rules": [
       "Never recommend items containing user's allergens",
       "Only suggest items from the provided menu",
+      "Make sure food recommendations do not contain the user's allergens.",
       "Keep responses brief and clear",
       "Be friendly and direct",
       "Always warn about potential allergen risks",
-      "Remove symbols like ** from your responses"
+      "Remove * from your responses"
     ]
   }
 }
