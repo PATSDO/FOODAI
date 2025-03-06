@@ -109,9 +109,6 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `allergens`, `password_hash`) VALUES
-(1, 'Asha', 'Cipriano', 'ashacipriano@gmail.com', 'Shellfish', '$2y$10$k8q6rcaZd7Jko9PfnacZN.sot01HZ.t9MRBm8uKeU0mSkwIWzYHm6');
-
 --
 -- Indexes for dumped tables
 --
