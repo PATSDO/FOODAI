@@ -19,13 +19,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($password, $hashed_password)) {
             $_SESSION['user_id'] = $user_id;
             $_SESSION['email'] = $email;
-            echo "<script>alert('Login successful!'); window.location.href='index.html';</script>";
+            header("Location: index.html");
             exit();
         } else {
-            echo "<script>alert('Invalid credentials!');</script>";
+            $_SESSION['error'] = "Invalid credentials!";
         }
     } else {
-        echo "<script>alert('User not found!');</script>";
+        $_SESSION['error'] = "User not found!";
     }
 
     $stmt->close();
@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Food AI</title>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Oswald:wght@500;600;700&family=Pacifico&display=swap" rel="stylesheet"> 
@@ -46,14 +46,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
-<body>
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
         <div class="card p-4 shadow-lg border-0" style="width: 400px;">
-            <h2 class="text-center text-primary">Register</h2>
+            <h2 class="text-center text-primary">Login</h2>
             <?php if(isset($_SESSION['error'])): ?>
-                <div class="alert alert-danger"> <?php echo $_SESSION['error']; unset($_SESSION['error']); ?> </div>
+                <div class="alert alert-danger"><?php echo $_SESSION['error']; unset($_SESSION['error']); ?></div>
             <?php endif; ?>
-            <form action="register.php" method="POST">
+            <form action="login.php" method="POST">
                 <div class="mb-3">
                     <label class="form-label">Email</label>
                     <input type="email" name="email" class="form-control" required>
