@@ -50,6 +50,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <style>
+        body {
+            background: url('img/registerbg.png') no-repeat center center fixed;
+            background-size: cover;
+        }
+        .card {
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.90); /* 70% opacity */
+        }
+    </style>
 </head>
 <body>
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
