@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="css/style.css" rel="stylesheet">
     <style>
         body {
-            background: url('img/registerbg.png') no-repeat center center fixed;
+            background: url('img/loginbg.png') no-repeat center center fixed;
             background-size: cover;
         }
         .card {
