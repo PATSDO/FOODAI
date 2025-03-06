@@ -36,18 +36,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Food AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Oswald:wght@500;600;700&family=Pacifico&display=swap" rel="stylesheet"> 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
-    <h2>Login</h2>
-    <form method="POST" action="login.php">
-        <label>Email:</label>
-        <input type="email" name="email" required><br>
-
-        <label>Password:</label>
-        <input type="password" name="password" required><br>
-
-        <button type="submit">Login</button>
-    </form>
+<body>
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <div class="card p-4 shadow-lg border-0" style="width: 400px;">
+            <h2 class="text-center text-primary">Register</h2>
+            <?php if(isset($_SESSION['error'])): ?>
+                <div class="alert alert-danger"> <?php echo $_SESSION['error']; unset($_SESSION['error']); ?> </div>
+            <?php endif; ?>
+            <form action="register.php" method="POST">
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" name="email" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" name="password" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Login</button>
+                
+                <p class="mt-3 text-center">Don't have an account? <a href="register.php">Register</a></p>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
