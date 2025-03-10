@@ -48,8 +48,6 @@ $menuResult = mysqli_query($conn, $menuQuery);
 <html lang="en">
 <head>
     <meta charset="utf-8">
-
-    <!-- Admin -->
     <title>Admin Dashboard - FAI</title>
 
     <link href="https://img.icons8.com/ios/50/null/food-bar.png" rel="icon">
@@ -61,6 +59,7 @@ $menuResult = mysqli_query($conn, $menuQuery);
     <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
+    <!-- Admin -->
     <!-- Topbar Start -->
     <div class="container-fluid px-0 d-none d-lg-block">
         <div class="row gx-0">
