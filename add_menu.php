@@ -34,6 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
+    <!-- Add Menu -->
     <h2>Add Menu Item</h2>
     <form method="POST" action="add_menu.php">
         <label>Restaurant Name:</label>
