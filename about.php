@@ -1,11 +1,24 @@
-<?php include 'db_connection.php'; ?> 
+<?php 
+session_start();
+include 'db_connection.php'; 
+
+// Stops the user in interacting with FAI
+if (!isset($_SESSION['first_name'])) {
+    echo "<div style='text-align: center; padding: 50px; font-size: 24px;'>
+            <p>Login to chat with FAI</p>
+            <a href='index.php'><button style='font-size: 18px; padding: 10px 20px;' class='btn btn-primary'>Back to Home</button></a>
+            <a href='login.php'><button style='font-size: 18px; padding: 10px 20px;' class='btn btn-primary'>Login</button></a>
+          </div>";
+    exit(); // Stop further execution
+}
+?> 
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <title>Food AI by Cipriano, Bandal, De Ocampo, Gesmundo, & Pua</title>
+    <title>FAI Chatbot - FAI</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <link href="https://img.icons8.com/ios/50/null/food-bar.png" rel="icon">
@@ -47,16 +60,16 @@
             </div>
             <div class="col-lg-4 text-center bg-primary border-inner py-3">
                 <div class="d-inline-flex align-items-center justify-content-center">
-                    <a href="index.html" class="navbar-brand">
-                        <h1 style="font-family: Times New Roman"class="m-0 text-uppercase text-white"><i class=" fs-1 text-dark me-3"></i>Food AI</h1>
+                    <a href="index.php" class="navbar-brand">
+                        <h1 style="font-family: Times New Roman" class="m-0 text-uppercase text-white"><i class="fs-1 text-dark me-3"></i>Food AI</h1>
                     </a>
                 </div>
             </div>
             <div class="col-lg-4 text-center bg-secondary py-3">
                 <div class="d-inline-flex align-items-center justify-content-center">
                     <div class="text-start">
-                        <a href="register.php" class="navbar-brand"><button  style="font-family: Times New Roman" type="button" class="btn btn-primary btn-lg">Register</button></a>
-                        <a href="login.php" class="navbar-brand"><button style="font-family: Times New Roman" type="button" class="btn btn-primary btn-lg">Login</button></a>
+                        <h6 class="text-black">Welcome, <?php echo htmlspecialchars($_SESSION['first_name']); ?>!</h6>
+                        <a href="logout.php"><button style="font-family: Times New Roman" type="button" class="btn btn-danger btn-lg">Logout</button></a>
                     </div>
                 </div>
             </div>
@@ -64,10 +77,9 @@
     </div>
     <!-- Topbar End -->
 
-
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-dark navbar-dark shadow-sm py-3 py-lg-0 px-3 px-lg-0">
-        <a href="index.html" class="navbar-brand d-block d-lg-none">
+        <a href="index.php" class="navbar-brand d-block d-lg-none">
             <h1 class="m-0 text-uppercase text-white"><i class=" text-primary me-3"></i>FAI</h1>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -75,11 +87,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto mx-lg-auto py-0">
-                <a style="font-family: Times New Roman" href="index.html" class="nav-item nav-link">Home</a>
+                <a style="font-family: Times New Roman" href="index.php" class="nav-item nav-link">Home</a>
                 <a style="font-family: Times New Roman"  href="about.php" class="nav-item nav-link active">FAI</a>
-                <a style="font-family: Times New Roman"  href="menu.html" class="nav-item nav-link">Jollibee</a>
-                <a style="font-family: Times New Roman"  href="menu2.html" class="nav-item nav-link">Mcdonalds</a>
-                <a style="font-family: Times New Roman"  href="menu3.html" class="nav-item nav-link">KFC</a>
+                <a style="font-family: Times New Roman"  href="menu.php" class="nav-item nav-link">Jollibee</a>
+                <a style="font-family: Times New Roman"  href="menu2.php" class="nav-item nav-link">Mcdonalds</a>
+                <a style="font-family: Times New Roman"  href="menu3.php" class="nav-item nav-link">KFC</a>
                 <div class="nav-item dropdown">
                     <a style="font-family: Times New Roman"  href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Orders</a>
                     <div class="dropdown-menu m-0">
@@ -169,7 +181,7 @@
             <div class="row gx-5">
                 <div class="col-lg-4 col-md-6 mb-lg-n5">
                     <div class="d-flex flex-column align-items-center justify-content-center text-center h-100 bg-primary border-inner p-4">
-                        <a href="index.html" class="navbar-brand">
+                        <a href="index.php" class="navbar-brand">
                             <h1 class="m-0 text-uppercase text-white"></i>Food AI</h1>
                         </a>
                         <p class="mt-3">Discover the best local dining experiences tailored just for you! FAI (Food AI) is an intelligent food recommendation system that uses artificial intelligence to suggest personalized meal options based on your preferences, dietary needs, and real-time availability from nearby fast food restaurants.</p>
@@ -195,11 +207,11 @@
                         <div class="col-lg-4 col-md-12 pt-0 pt-lg-5 mb-5">
                             <h4 class="text-primary text-uppercase mb-4">Quick Links</h4>
                             <div class="d-flex flex-column justify-content-start">
-                            <a class="text-secondary mb-2" href="index.html"><i class="bi bi-arrow-right text-primary me-2"></i>Home</a>
+                            <a class="text-secondary mb-2" href="index.php"><i class="bi bi-arrow-right text-primary me-2"></i>Home</a>
                                 <a class="text-secondary mb-2" href="about.php"><i class="bi bi-arrow-right text-primary me-2"></i>FOODAI</a>
-                                <a class="text-secondary mb-2" href="menu.html"><i class="bi bi-arrow-right text-primary me-2"></i>Jollibee</a>
-                                <a class="text-secondary mb-2" href="menu2.html"><i class="bi bi-arrow-right text-primary me-2"></i>Mcdonalds</a>
-                                <a class="text-secondary mb-2" href="menu3.html"><i class="bi bi-arrow-right text-primary me-2"></i>KFC</a>
+                                <a class="text-secondary mb-2" href="menu.php"><i class="bi bi-arrow-right text-primary me-2"></i>Jollibee</a>
+                                <a class="text-secondary mb-2" href="menu2.php"><i class="bi bi-arrow-right text-primary me-2"></i>Mcdonalds</a>
+                                <a class="text-secondary mb-2" href="menu3.php"><i class="bi bi-arrow-right text-primary me-2"></i>KFC</a>
                                 <a class="text-secondary" href="contact.html"><i class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
                             </div>
                         </div>

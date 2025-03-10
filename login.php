@@ -1,25 +1,31 @@
 <?php
-require 'db_connection.php';
 session_start();
+require 'db_connection.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
 
-    // Retrieve user from the database
-    $stmt = $conn->prepare("SELECT id, password_hash FROM users WHERE email = ?");
+    $stmt = $conn->prepare("SELECT id, first_name, password_hash, role FROM users WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $stmt->store_result();
     
     if ($stmt->num_rows > 0) {
-        $stmt->bind_result($user_id, $hashed_password);
+        $stmt->bind_result($user_id, $first_name, $hashed_password, $role);
         $stmt->fetch();
 
         if (password_verify($password, $hashed_password)) {
             $_SESSION['user_id'] = $user_id;
+            $_SESSION['first_name'] = $first_name;
             $_SESSION['email'] = $email;
-            header("Location: index.html");
+            $_SESSION['role'] = $role;
+
+            if ($role === 'admin') {
+                header("Location: admin_dashboard.php");
+            } else {
+                header("Location: index.php");
+            }
             exit();
         } else {
             $_SESSION['error'] = "Invalid credentials!";
@@ -38,7 +44,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Food AI</title>
+    <title>Login - FAI</title>
+    <link href="https://img.icons8.com/ios/50/null/food-bar.png" rel="icon">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Oswald:wght@500;600;700&family=Pacifico&display=swap" rel="stylesheet"> 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">

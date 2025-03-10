@@ -1,7 +1,5 @@
 <?php
 session_start();
-
-// Include database connection
 require 'db_connection.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -9,12 +7,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $last_name = trim($_POST['last_name']);
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
-    $allergens = isset($_POST['allergens']) ? implode(", ", $_POST['allergens']) : "";
+    $allergen = isset($_POST['allergens']) ? implode(", ", $_POST['allergens']) : "";
+    $role = "user"; // Default role for new users
 
-    // Hash password
     $password_hash = password_hash($password, PASSWORD_BCRYPT);
 
-    // Check if email already exists
     $stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
@@ -23,9 +20,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($stmt->num_rows > 0) {
         echo "<script>alert('Email already exists!');</script>";
     } else {
-        // Insert into database
-        $stmt = $conn->prepare("INSERT INTO users (first_name, last_name, email, allergens, password_hash) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssss", $first_name, $last_name, $email, $allergens, $password_hash);
+        $stmt = $conn->prepare("INSERT INTO users (first_name, last_name, email, allergen, password_hash, role) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssss", $first_name, $last_name, $email, $allergen, $password_hash, $role);
 
         if ($stmt->execute()) {
             echo "<script>alert('Registration successful!'); window.location.href='login.php';</script>";
@@ -44,7 +40,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - Food AI</title>
+    <title>Register - FAI</title>
+    <link href="https://img.icons8.com/ios/50/null/food-bar.png" rel="icon">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Oswald:wght@500;600;700&family=Pacifico&display=swap" rel="stylesheet"> 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">

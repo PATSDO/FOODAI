@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 06, 2025 at 07:50 AM
+-- Generation Time: Mar 10, 2025 at 04:57 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.1.25
 
@@ -20,19 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `food_ai_db`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `chat_log`
---
-
-CREATE TABLE `chat_log` (
-  `id` int(11) NOT NULL,
-  `user_message` text NOT NULL,
-  `bot_response` text NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -58,7 +45,7 @@ INSERT INTO `menu` (`id`, `restaurant_name`, `food_name`, `allergen`, `descripti
 (3, 'McDonalds', 'Quarter Pounder with Cheese', 'Wheat, Soy, Milk', 'A quarter-pound beef patty with cheese, pickles, onions, ketchup, and mustard on a bun'),
 (4, 'McDonalds', 'McChicken', 'Wheat, Soy, Egg, Milk', 'Crispy chicken patty with lettuce and mayo on a bun'),
 (5, 'McDonalds', 'Filet-O-Fish', 'Wheat, Soy, Egg, Milk, Fish', 'Breaded fish fillet with tartar sauce and cheese on a steamed bun'),
-(6, 'McDonalds', 'French Fries', 'May contain traces of: Wheat, Soy', 'Golden crispy fries, may be cooked in shared oil'),
+(6, 'McDonalds', 'French Fries', 'Wheat, Soy', 'Golden crispy fries, may be cooked in shared oil'),
 (7, 'McDonalds', 'Apple Pie', 'Wheat, Soy', 'Baked apple pie with a crispy crust'),
 (8, 'McDonalds', 'Chicken McNuggets', 'Wheat, Soy', 'Breaded chicken nuggets with dipping sauce'),
 (9, 'McDonalds', 'McFlurry (Oreo)', 'Milk, Wheat, Soy', 'Soft-serve ice cream mixed with Oreo pieces'),
@@ -71,7 +58,7 @@ INSERT INTO `menu` (`id`, `restaurant_name`, `food_name`, `allergen`, `descripti
 (16, 'Jollibee', 'Chickenjoy', 'Wheat, Soy, Egg', 'Crispy fried chicken served with rice and gravy'),
 (17, 'Jollibee', 'Jolly Spaghetti', 'Wheat, Soy, Milk', 'Sweet-style spaghetti with hotdogs and cheese'),
 (18, 'Jollibee', 'Burger Steak', 'Wheat, Soy', 'Beef patties served with mushroom gravy and rice'),
-(19, 'Jollibee', 'Jolly Fries', 'May contain traces of: Wheat, Soy', 'Crispy fries, cooked in shared oil'),
+(19, 'Jollibee', 'Jolly Fries', 'Wheat, Soy', 'Crispy fries, cooked in shared oil'),
 (20, 'Jollibee', 'Mashed Potato (Gravy)', 'Wheat, Soy, Milk', 'Mashed potatoes topped with Jollibee’s signature gravy'),
 (21, 'Jollibee', 'Peach Mango Pie', 'Wheat, Soy', 'Crispy turnover filled with peach and mango filling'),
 (22, 'Jollibee', 'Sundae (Chocolate/Caramel)', 'Milk', 'Vanilla soft-serve with syrup topping'),
@@ -82,7 +69,7 @@ INSERT INTO `menu` (`id`, `restaurant_name`, `food_name`, `allergen`, `descripti
 (27, 'KFC', 'Zinger', 'Wheat, Soy, Egg, Milk', 'Spicy chicken sandwich with lettuce and mayo'),
 (28, 'KFC', 'Colonel Burger', 'Wheat, Soy, Egg, Milk', 'Classic KFC burger with seasoned chicken patty'),
 (29, 'KFC', 'Mashed Potatoes & Gravy', 'Wheat, Soy, Milk', 'Creamy mashed potatoes with brown gravy'),
-(30, 'KFC', 'French Fries', 'May contain traces of: Wheat, Soy', 'Crispy potato fries, cooked in shared oil'),
+(30, 'KFC', 'French Fries', 'Wheat, Soy', 'Crispy potato fries, cooked in shared oil'),
 (31, 'KFC', 'Coleslaw', 'Egg', 'Cabbage and carrot coleslaw with dressing'),
 (32, 'KFC', 'Chocolate Chip Cookie', 'Wheat, Soy, Egg, Milk', 'Soft-baked chocolate chip cookie'),
 (33, 'KFC', 'Sundae (Chocolate/Caramel)', 'Milk', 'Vanilla soft-serve with syrup topping'),
@@ -99,19 +86,21 @@ CREATE TABLE `users` (
   `first_name` varchar(50) NOT NULL,
   `last_name` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `allergens` text DEFAULT NULL,
-  `password_hash` varchar(255) NOT NULL
+  `allergen` text DEFAULT NULL,
+  `password_hash` varchar(255) NOT NULL,
+  `role` enum('user','admin') NOT NULL DEFAULT 'user'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `allergen`, `password_hash`, `role`) VALUES
+(4, 'Admin', 'User', 'admin@gmail.com', NULL, '$2y$10$ElfceEOw/dcplJVrZ1gii.IcH6p.lNSLAotQa5ZYlXBhCfnAC1yM6', 'admin');
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `chat_log`
---
-ALTER TABLE `chat_log`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `menu`
@@ -131,22 +120,16 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `chat_log`
---
-ALTER TABLE `chat_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
