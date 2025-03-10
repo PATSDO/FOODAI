@@ -41,3 +41,5 @@ Email: admin@gmail.com
 <br>
 Password: admin
 
+<!-- only if there's no admin in database -->
+
