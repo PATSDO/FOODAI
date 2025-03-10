@@ -51,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
+    <!-- Edit Menu -->
     <h2>Edit Menu Item</h2>
     <form method="POST">
         <label>Restaurant Name:</label>
