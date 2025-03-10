@@ -35,7 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 </head>
-<body>
+<body> 
+    <!-- Add User -->
     <h2>Add User</h2>
     <form method="POST" action="add_user.php">
         <label>First Name:</label>
