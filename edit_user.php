@@ -53,6 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
+    <!-- Edit User-->
     <h2>Edit User</h2>
     <form method="POST">
         <label>First Name:</label>
