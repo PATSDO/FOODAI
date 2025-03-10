@@ -15,3 +15,5 @@ if (mysqli_query($conn, $delete_query)) {
     echo "Error: " . mysqli_error($conn);
 }
 ?>
+
+<!-- Delete Menu -->
