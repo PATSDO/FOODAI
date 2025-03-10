@@ -1,28 +1,20 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <title>Food AI by Cipriano, Bandal, De Ocampo, Gesmundo, & Pua</title>
+    <title>Home - FAI</title>
 
     <link href="https://img.icons8.com/ios/50/null/food-bar.png" rel="icon">
-
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Oswald:wght@500;600;700&family=Pacifico&display=swap" rel="stylesheet"> 
-
-    <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- Libraries Stylesheet -->
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
-    <!-- Customized Bootstrap Stylesheet -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
 </head>
 
@@ -41,16 +33,21 @@
             </div>
             <div class="col-lg-4 text-center bg-primary border-inner py-3">
                 <div class="d-inline-flex align-items-center justify-content-center">
-                    <a href="index.html" class="navbar-brand">
-                        <h1 style="font-family: Times New Roman" class="m-0 text-uppercase text-white"></i>Food AI</h1>
+                    <a href="index.php" class="navbar-brand">
+                        <h1 style="font-family: Times New Roman" class="m-0 text-uppercase text-white">Food AI</h1>
                     </a>
                 </div>
             </div>
             <div class="col-lg-4 text-center bg-secondary py-3">
                 <div class="d-inline-flex align-items-center justify-content-center">
                     <div class="text-start">
-                        <a href="register.php" class="navbar-brand"><button  style="font-family: Times New Roman" type="button" class="btn btn-primary btn-lg">Register</button></a>
-                        <a href="login.php" class="navbar-brand"><button style="font-family: Times New Roman" type="button" class="btn btn-primary btn-lg">Login</button></a>
+                        <?php if (isset($_SESSION['first_name'])): ?>
+                            <h6 class="text-black">Welcome, <?php echo htmlspecialchars($_SESSION['first_name']); ?>!</h6>
+                            <a href="logout.php"><button style="font-family: Times New Roman" type="button" class="btn btn-danger btn-lg">Logout</button></a>
+                        <?php else: ?>
+                            <a href="register.php"><button style="font-family: Times New Roman" type="button" class="btn btn-primary btn-lg">Register</button></a>
+                            <a href="login.php"><button style="font-family: Times New Roman" type="button" class="btn btn-primary btn-lg">Login</button></a>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -58,35 +55,33 @@
     </div>
     <!-- Topbar End -->
 
-
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-dark navbar-dark shadow-sm py-3 py-lg-0 px-3 px-lg-0">
-        <a href="index.html" class="navbar-brand d-block d-lg-none">
-            <h1 class="m-0 text-uppercase text-white"><i class=" text-primary me-3"></i>FAI</h1>
+        <a href="index.php" class="navbar-brand d-block d-lg-none">
+            <h1 class="m-0 text-uppercase text-white">FAI</h1>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto mx-lg-auto py-0">
-                <a style="font-family: Times New Roman" href="index.html" class="nav-item nav-link active">Home</a>
-                <a style="font-family: Times New Roman"  href="about.php" class="nav-item nav-link">FAI</a>
-                <a style="font-family: Times New Roman"  href="menu.html" class="nav-item nav-link">Jollibee</a>
-                <a style="font-family: Times New Roman"  href="menu2.html" class="nav-item nav-link">Mcdonalds</a>
-                <a style="font-family: Times New Roman"  href="menu3.html" class="nav-item nav-link">KFC</a>
+                <a style="font-family: Times New Roman" href="index.php" class="nav-item nav-link active">Home</a>
+                <a style="font-family: Times New Roman" href="about.php" class="nav-item nav-link">FAI</a>
+                <a style="font-family: Times New Roman" href="menu.php" class="nav-item nav-link">Jollibee</a>
+                <a style="font-family: Times New Roman" href="menu2.php" class="nav-item nav-link">McDonald's</a>
+                <a style="font-family: Times New Roman" href="menu3.php" class="nav-item nav-link">KFC</a>
                 <div class="nav-item dropdown">
-                    <a style="font-family: Times New Roman"  href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Orders</a>
+                    <a style="font-family: Times New Roman" href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Orders</a>
                     <div class="dropdown-menu m-0">
                         <a href="service.html" class="dropdown-item">History</a>
                         <a href="testimonial.html" class="dropdown-item">Reviews</a>
                     </div>
                 </div>
-                <a style="font-family: Times New Roman"  href="contact.html" class="nav-item nav-link">Contact Us</a>
+                <a style="font-family: Times New Roman" href="contact.html" class="nav-item nav-link">Contact Us</a>
             </div>
         </div>
     </nav>
     <!-- Navbar End -->
-
 
     <!-- Hero Start -->
     <div class="container-fluid bg-primary py-5 mb-5 hero-header">
