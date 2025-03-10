@@ -1,9 +1,13 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <title>Food AI by Cipriano, Bandal, De Ocampo, Gesmundo, & Pua</title>
+    <title>Kentucky Fried Chicken - FAI</title>
 
     <link href="https://img.icons8.com/ios/50/null/food-bar.png" rel="icon">
 
@@ -41,16 +45,21 @@
             </div>
             <div class="col-lg-4 text-center bg-primary border-inner py-3">
                 <div class="d-inline-flex align-items-center justify-content-center">
-                    <a href="index.html" class="navbar-brand">
-                        <h1 style="font-family: Times New Roman" class="m-0 text-uppercase text-white"></i>Food AI</h1>
+                    <a href="index.php" class="navbar-brand">
+                        <h1 style="font-family: Times New Roman" class="m-0 text-uppercase text-white">Food AI</h1>
                     </a>
                 </div>
             </div>
             <div class="col-lg-4 text-center bg-secondary py-3">
                 <div class="d-inline-flex align-items-center justify-content-center">
                     <div class="text-start">
-                        <a href="register.php" class="navbar-brand"><button  style="font-family: Times New Roman" type="button" class="btn btn-primary btn-lg">Register</button></a>
-                        <a href="login.php" class="navbar-brand"><button style="font-family: Times New Roman" type="button" class="btn btn-primary btn-lg">Login</button></a>
+                        <?php if (isset($_SESSION['first_name'])): ?>
+                            <h6 class="text-black">Welcome, <?php echo htmlspecialchars($_SESSION['first_name']); ?>!</h6>
+                            <a href="logout.php"><button style="font-family: Times New Roman" type="button" class="btn btn-danger btn-lg">Logout</button></a>
+                        <?php else: ?>
+                            <a href="register.php"><button style="font-family: Times New Roman" type="button" class="btn btn-primary btn-lg">Register</button></a>
+                            <a href="login.php"><button style="font-family: Times New Roman" type="button" class="btn btn-primary btn-lg">Login</button></a>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -58,10 +67,9 @@
     </div>
     <!-- Topbar End -->
 
-
-  <!-- Navbar Start -->
+    <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-dark navbar-dark shadow-sm py-3 py-lg-0 px-3 px-lg-0">
-        <a href="index.html" class="navbar-brand d-block d-lg-none">
+        <a href="index.php" class="navbar-brand d-block d-lg-none">
             <h1 class="m-0 text-uppercase text-white"><i class=" text-primary me-3"></i>FAI</h1>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -69,11 +77,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto mx-lg-auto py-0">
-                <a style="font-family: Times New Roman" href="index.html" class="nav-item nav-link">Home</a>
+                <a style="font-family: Times New Roman" href="index.php" class="nav-item nav-link">Home</a>
                 <a style="font-family: Times New Roman"  href="about.php" class="nav-item nav-link">FAI</a>
-                <a style="font-family: Times New Roman"  href="menu.html" class="nav-item nav-link">Jollibee</a>
-                <a style="font-family: Times New Roman"  href="menu2.html" class="nav-item nav-link">Mcdonalds</a>
-                <a style="font-family: Times New Roman"  href="menu3.html" class="nav-item nav-link active">KFC</a>
+                <a style="font-family: Times New Roman"  href="menu.php" class="nav-item nav-link">Jollibee</a>
+                <a style="font-family: Times New Roman"  href="menu2.php" class="nav-item nav-link">Mcdonalds</a>
+                <a style="font-family: Times New Roman"  href="menu3.php" class="nav-item nav-link active">KFC</a>
                 <div class="nav-item dropdown">
                     <a style="font-family: Times New Roman"  href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Orders</a>
                     <div class="dropdown-menu m-0">
@@ -87,8 +95,7 @@
     </nav>
     <!-- Navbar End -->
 
-
-     <!-- Page Header Start -->
+    <!-- Page Header Start -->
     <div class="container-fluid bg-dark bg-img p-5 mb-5">
         <div class="row">
             <div class="col-12 text-center">
