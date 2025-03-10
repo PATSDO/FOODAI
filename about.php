@@ -103,7 +103,7 @@ if (!isset($_SESSION['first_name'])) {
             </div>
         </div>
     </nav>
-    <!-- Navbar End -->
+    <!-- Navbar End --><!-- Changed to php -->
 
     <!-- Page Header Start -->
     <div class="container-fluid bg-dark bg-img p-5 mb-5">
