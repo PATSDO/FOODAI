@@ -48,6 +48,8 @@ $menuResult = mysqli_query($conn, $menuQuery);
 <html lang="en">
 <head>
     <meta charset="utf-8">
+
+    <!-- Admin -->
     <title>Admin Dashboard - FAI</title>
 
     <link href="https://img.icons8.com/ios/50/null/food-bar.png" rel="icon">
