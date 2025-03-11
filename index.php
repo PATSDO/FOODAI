@@ -31,10 +31,10 @@ session_start();
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 text-center bg-primary border-inner py-3">
+            <div class="col-lg-4 text-center bg-primary border-inner py-4">
                 <div class="d-inline-flex align-items-center justify-content-center">
                     <a href="index.php" class="navbar-brand">
-                        <h1 style="font-family: Times New Roman" class="m-0 text-uppercase text-white">Food AI</h1>
+                        <h1 style="font-family: Times New Roman" class="m-0 text-uppercase text-white"></i>Food AI</h1>
                     </a>
                 </div>
             </div>
@@ -73,11 +73,10 @@ session_start();
                 <div class="nav-item dropdown">
                     <a style="font-family: Times New Roman" href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Orders</a>
                     <div class="dropdown-menu m-0">
-                        <a href="service.html" class="dropdown-item">History</a>
-                        <a href="testimonial.html" class="dropdown-item">Reviews</a>
+                        <a href="service.php" class="dropdown-item">History</a>
+                        <a href="testimonial.php" class="dropdown-item">Reviews</a>
                     </div>
                 </div>
-                <a style="font-family: Times New Roman" href="contact.html" class="nav-item nav-link">Contact Us</a>
             </div>
         </div>
     </nav>
@@ -258,17 +257,18 @@ Explore. Personalize. Enjoy. Let AI bring you the perfect dining experience!
                         <div class="col-lg-4 col-md-12 pt-0 pt-lg-5 mb-5">
                             <h4 class="text-primary text-uppercase mb-4">Quick Links</h4>
                             <div class="d-flex flex-column justify-content-start">
-                                <a class="text-secondary mb-2" href="index.html"><i class="bi bi-arrow-right text-primary me-2"></i>Home</a>
+                                <a class="text-secondary mb-2" href="index.php"><i class="bi bi-arrow-right text-primary me-2"></i>Home</a>
                                 <a class="text-secondary mb-2" href="about.php"><i class="bi bi-arrow-right text-primary me-2"></i>FOODAI</a>
-                                <a class="text-secondary mb-2" href="menu.html"><i class="bi bi-arrow-right text-primary me-2"></i>Jollibee</a>
-                                <a class="text-secondary mb-2" href="menu2.html"><i class="bi bi-arrow-right text-primary me-2"></i>Mcdonalds</a>
-                                <a class="text-secondary mb-2" href="menu3.html"><i class="bi bi-arrow-right text-primary me-2"></i>KFC</a>
-                                <a class="text-secondary" href="contact.html"><i class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
+                                <a class="text-secondary mb-2" href="menu.php"><i class="bi bi-arrow-right text-primary me-2"></i>Jollibee</a>
+                                <a class="text-secondary mb-2" href="menu2.php"><i class="bi bi-arrow-right text-primary me-2"></i>McDonald's</a>
+                                <a class="text-secondary mb-2" href="menu3.php"><i class="bi bi-arrow-right text-primary me-2"></i>KFC</a>
+                                <a class="text-secondary mb-2" href="service.php"><i class="bi bi-arrow-right text-primary me-2"></i>History</a>
+                                <a class="text-secondary mb-2" href="testimonial.php"><i class="bi bi-arrow-right text-primary me-2"></i>Reviews</a>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-12 pt-0 pt-lg-5 mb-5">
                             <h4 class="text-primary text-uppercase mb-4">Email Us</h4>
-                            <p>Amet justo diam dolor rebum lorem sit stet sea justo kasd</p>
+                            <p>foodai@gmail.com</p>
                             <form action="">
                                 <div class="input-group">
                                     <input type="text" class="form-control border-white p-3" placeholder="Your Email">
@@ -283,7 +283,7 @@ Explore. Personalize. Enjoy. Let AI bring you the perfect dining experience!
     </div>
     <div class="container-fluid text-secondary py-4" style="background: #111111;">
         <div class="container text-center">
-            <p class="mb-0">&copy; <a class="text-white border-bottom" href="index.html">Food AI</a>. by Cipriano, Bandal, De Ocampo, Gesmundo, & Pua</p>
+            <p class="mb-0">&copy; <a class="text-white border-bottom" href="index.php">Food AI</a>. by Cipriano, Bandal, De Ocampo, Gesmundo, & Pua</p>
         </div>
     </div>
     <!-- Footer End -->
