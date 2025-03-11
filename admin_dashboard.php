@@ -67,7 +67,7 @@ $menuAllergenResult = mysqli_query($conn, $menuAllergenQuery);
     <style>
         body {
             font-family: "Times New Roman", Times, serif;
-            background: url('addashbg.jpg') no-repeat center center fixed;
+            background: url('img/addashbg.jpg') no-repeat center center fixed;
             background-size: cover;
             color: #000;
         }
