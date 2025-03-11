@@ -2,6 +2,11 @@
 session_start();
 require 'db_connection.php';
 
+if (!isset($_SESSION["user_id"]) || $_SESSION["role"] !== "admin") {
+    header("Location: login.php");
+    exit();
+}
+
 // Handle User Search Filters
 $userWhereClauses = [];
 if (!empty($_GET['search_user'])) {
