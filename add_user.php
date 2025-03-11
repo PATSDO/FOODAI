@@ -1,47 +1,23 @@
-
-<?php include 'db_connection.php'; ?> 
- 
-
 <?php 
- 
-
 session_start();
+require 'db_connection.php';
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $first_name = mysqli_real_escape_string($conn, $_POST['first_name']);
+    $last_name = mysqli_real_escape_string($conn, $_POST['last_name']);
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $allergen = mysqli_real_escape_string($conn, $_POST['allergen']);
+    $role = mysqli_real_escape_string($conn, $_POST['role']);
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Hash the password
  
-
-include 'db_connection.php'; 
- 
-
-
- 
-
-// Stops the user in interacting with FAI
- 
-
-if (!isset($_SESSION['first_name'])) {
- 
-
-    echo "<div style='text-align: center; padding: 50px; font-size: 24px;'>
- 
-
-            <p>Login to chat with FAI</p>
- 
-
-            <a href='index.php'><button style='font-size: 18px; padding: 10px 20px;' class='btn btn-primary'>Back to Home</button></a>
- 
-
-            <a href='login.php'><button style='font-size: 18px; padding: 10px 20px;' class='btn btn-primary'>Login</button></a>
- 
-
-          </div>";
- 
-
-    exit(); // Stop further execution
- 
-
+    $query = "INSERT INTO users (first_name, last_name, email, allergen, password_hash, role) 
+              VALUES ('$first_name', '$last_name', '$email', '$allergen', '$password', '$role')";
+    if (mysqli_query($conn, $query)) {
+        echo "<script>alert('User added successfully!'); window.location='admin_dashboard.php';</script>";
+    } else {
+        echo "Error: " . mysqli_error($conn);
+    }
 }
- 
-
-?> 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
