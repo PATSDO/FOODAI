@@ -1,3 +1,47 @@
+
+<?php include 'db_connection.php'; ?> 
+ 
+
+<?php 
+ 
+
+session_start();
+ 
+
+include 'db_connection.php'; 
+ 
+
+
+ 
+
+// Stops the user in interacting with FAI
+ 
+
+if (!isset($_SESSION['first_name'])) {
+ 
+
+    echo "<div style='text-align: center; padding: 50px; font-size: 24px;'>
+ 
+
+            <p>Login to chat with FAI</p>
+ 
+
+            <a href='index.php'><button style='font-size: 18px; padding: 10px 20px;' class='btn btn-primary'>Back to Home</button></a>
+ 
+
+            <a href='login.php'><button style='font-size: 18px; padding: 10px 20px;' class='btn btn-primary'>Login</button></a>
+ 
+
+          </div>";
+ 
+
+    exit(); // Stop further execution
+ 
+
+}
+ 
+
+?> 
 <!DOCTYPE html>
 <html lang="en">
 <head>
