@@ -1,3 +1,25 @@
+<?php
+session_start();
+require 'db_connection.php';
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $restaurant_name = mysqli_real_escape_string($conn, $_POST['restaurant_name']);
+    $food_name = mysqli_real_escape_string($conn, $_POST['food_name']);
+    $allergen = mysqli_real_escape_string($conn, $_POST['allergen']);
+    $description = mysqli_real_escape_string($conn, $_POST['description']);
+    $query = "INSERT INTO menu (restaurant_name, food_name, allergen, description) 
+              VALUES ('$restaurant_name', '$food_name', '$allergen', '$description')";
+
+    if (mysqli_query($conn, $query)) {
+        echo "<script>alert('Menu item added successfully!'); window.location='admin_dashboard.php';</script>";
+    } else {
+        echo "Error: " . mysqli_error($conn);
+    }
+
+}
+ 
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
