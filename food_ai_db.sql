@@ -9,6 +9,9 @@ SET time_zone = "+00:00";
 -- Table structure for table `menu`
 --
 
+CREATE DATABASE IF NOT EXISTS `food_ai_db` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `food_ai_db`;
+
 CREATE TABLE `menu` (
   `id` int(11) NOT NULL,
   `restaurant_name` varchar(100) NOT NULL,
