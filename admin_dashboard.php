@@ -2,12 +2,7 @@
 session_start();
 require 'db_connection.php';
 
-if (!isset($_SESSION["user_id"]) || $_SESSION["role"] !== "admin") {
-    header("Location: login.php");
-    exit();
-}
-
-// Handle User Search Filters
+// User filtering logic
 $userWhereClauses = [];
 if (!empty($_GET['search_user'])) {
     $searchUser = mysqli_real_escape_string($conn, $_GET['search_user']);
@@ -24,13 +19,7 @@ if (!empty($_GET['user_role'])) {
     $userWhereClauses[] = "role = '$userRole'";
 }
 
-$userWhereSQL = !empty($userWhereClauses) ? 'WHERE ' . implode(' AND ', $userWhereClauses) : '';
-
-// Fetch Users with Filters
-$usersQuery = "SELECT * FROM users $userWhereSQL";
-$usersResult = mysqli_query($conn, $usersQuery);
-
-// Handle Menu Filters
+// Menu filtering logic
 $menuWhereClauses = [];
 if (!empty($_GET['restaurant'])) {
     $restaurant = mysqli_real_escape_string($conn, $_GET['restaurant']);
@@ -42,189 +31,388 @@ if (!empty($_GET['allergen'])) {
     $menuWhereClauses[] = "allergen = '$allergen'";
 }
 
+// Prepare and execute queries
+$userWhereSQL = !empty($userWhereClauses) ? 'WHERE ' . implode(' AND ', $userWhereClauses) : '';
 $menuWhereSQL = !empty($menuWhereClauses) ? 'WHERE ' . implode(' AND ', $menuWhereClauses) : '';
 
-// Fetch Menu Items with Filters
+$usersQuery = "SELECT * FROM users $userWhereSQL";
+$usersResult = mysqli_query($conn, $usersQuery);
+
 $menuQuery = "SELECT * FROM menu $menuWhereSQL";
 $menuResult = mysqli_query($conn, $menuQuery);
+
+// Get filter options
+$allergenQuery = "SELECT DISTINCT allergen FROM users WHERE allergen IS NOT NULL";
+$allergenResult = mysqli_query($conn, $allergenQuery);
+
+$restaurantQuery = "SELECT DISTINCT restaurant_name FROM menu";
+$restaurantResult = mysqli_query($conn, $restaurantQuery);
+
+$menuAllergenQuery = "SELECT DISTINCT allergen FROM menu";
+$menuAllergenResult = mysqli_query($conn, $menuAllergenQuery);
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Admin Dashboard - FAI</title>
-
-    <link href="https://img.icons8.com/ios/50/null/food-bar.png" rel="icon">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Oswald:wght@500;600;700&family=Pacifico&display=swap" rel="stylesheet"> 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Dashboard - Food AI</title>
+    
+    <!-- External CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <style>
+        body {
+            font-family: "Times New Roman", Times, serif;
+            background: url('addashbg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #000;
+        }
+        
+        .container-wrapper {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            border-radius: 5px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #000;
+            padding-bottom: 20px;
+        }
+        
+        .section-header {
+            border-bottom: 1px solid #000;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        .navbar-custom {
+            background-color: #000;
+        }
+        
+        .btn-custom {
+            background-color: #000;
+            color: #fff;
+            border: 1px solid #000;
+        }
+        
+        .btn-custom:hover {
+            background-color: #333;
+            color: #fff;
+        }
+        
+        .btn-danger-custom {
+            background-color: #fff;
+            color: #000;
+            border: 1px solid #000;
+        }
+        
+        .btn-danger-custom:hover {
+            background-color: #eee;
+            color: #000;
+        }
+        
+        table {
+            background-color: #fff;
+            border: 1px solid #000;
+        }
+        
+        thead {
+            background-color: #000;
+            color: #fff;
+        }
+        
+        .action-link {
+            color: #000;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+        
+        .action-link:hover {
+            text-decoration: underline;
+        }
+        
+        .form-control, .form-select {
+            border: 1px solid #000;
+            font-family: "Times New Roman", Times, serif;
+        }
+        
+        .topbar {
+            background-color: #000;
+            color: #fff;
+            padding: 15px 0;
+        }
+        
+        .brand-section {
+            border-left: 1px solid #fff;
+            border-right: 1px solid #fff;
+        }
+        
+        .welcome-message {
+            display: inline-block;
+            margin-right: 15px;
+            vertical-align: middle;
+        }
+    </style>
 </head>
+
 <body>
-    <!-- Admin -->
-    <!-- Topbar Start -->
-    <div class="container-fluid px-0 d-none d-lg-block">
-        <div class="row gx-0">
-            <div class="col-lg-4 text-center bg-secondary py-3">
-                <div class="d-inline-flex align-items-center justify-content-center">
-                    <i class="bi bi-envelope fs-1 text-primary me-3"></i>
-                    <div class="text-start">
-                        <h6 style="font-family: Times New Roman" class="text-uppercase mb-1">Email Us</h6>
-                        <span>foodai@gmail.com</span>
-                    </div>
+    <!-- Top Navigation Bar -->
+    <div class="topbar">
+        <div class="container">
+            <div class="row align-items-center">
+                <!-- Email Section -->
+                <div class="col-md-4 text-center text-md-start">
+                    <i class="fas fa-envelope me-2"></i>
+                    <span>foodai@gmail.com</span>
                 </div>
-            </div>
-            <div class="col-lg-4 text-center bg-primary border-inner py-3">
-                <div class="d-inline-flex align-items-center justify-content-center">
-                    <a href="index.php" class="navbar-brand">
-                        <h1 style="font-family: Times New Roman" class="m-0 text-uppercase text-white">Food AI</h1>
+                
+                <!-- Brand Logo Section -->
+                <div class="col-md-4 text-center brand-section">
+                    <a href="index.php" class="text-decoration-none">
+                        <h1 class="m-0 text-uppercase text-white">Food AI</h1>
                     </a>
                 </div>
-            </div>
-            <div class="col-lg-4 text-center bg-secondary py-3">
-                <div class="d-inline-flex align-items-center justify-content-center">
-                    <div class="text-start">
-                        <?php if (isset($_SESSION['first_name'])): ?>
-                            <h6 class="text-black">Welcome, <?php echo htmlspecialchars($_SESSION['first_name']); ?>!</h6>
-                            <a href="logout.php"><button style="font-family: Times New Roman" type="button" class="btn btn-danger btn-lg">Logout</button></a>
-                        <?php else: ?>
-                            <a href="register.php"><button style="font-family: Times New Roman" type="button" class="btn btn-primary btn-lg">Register</button></a>
-                            <a href="login.php"><button style="font-family: Times New Roman" type="button" class="btn btn-primary btn-lg">Login</button></a>
-                        <?php endif; ?>
-                    </div>
+                
+                <!-- User Controls Section -->
+                <div class="col-md-4 text-center text-md-end">
+                    <?php if (isset($_SESSION['first_name'])): ?>
+                        <div class="welcome-message">
+                            Welcome, <?php echo htmlspecialchars($_SESSION['first_name']); ?>!
+                        </div>
+                        <a href="logout.php" class="btn btn-danger-custom">Logout</a>
+                    <?php else: ?>
+                        <a href="register.php" class="btn btn-custom me-2">Register</a>
+                        <a href="login.php" class="btn btn-custom">Login</a>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Topbar End -->
-
-    <h2>Admin Dashboard</h2>
-
-    <!-- Manage Users -->
-    <h3>Manage Users</h3>
-
-    <!-- Add User -->
-    <a href="add_user.php">Add User</a>
-
-    <!-- User Filter -->
-    <form method="GET" action="admin_dashboard.php">
-        <label for="search_user">Search Name:</label>
-        <input type="text" name="search_user" placeholder="Enter first or last name" value="<?= $_GET['search_user'] ?? '' ?>">
-
-        <label for="user_allergen">Filter by Allergen:</label>
-        <select name="user_allergen">
-            <option value="">All</option>
-            <?php
-            $allergenQuery = "SELECT DISTINCT allergen FROM users WHERE allergen IS NOT NULL";
-            $allergenResult = mysqli_query($conn, $allergenQuery);
-            while ($row = mysqli_fetch_assoc($allergenResult)) {
-                $selected = ($_GET['user_allergen'] ?? '') == $row['allergen'] ? 'selected' : '';
-                echo "<option value='{$row['allergen']}' $selected>{$row['allergen']}</option>";
-            }
-            ?>
-        </select>
-
-        <label for="user_role">Filter by Role:</label>
-        <select name="user_role">
-            <option value="">All</option>
-            <option value="admin" <?= ($_GET['user_role'] ?? '') == 'admin' ? 'selected' : '' ?>>Admin</option>
-            <option value="user" <?= ($_GET['user_role'] ?? '') == 'user' ? 'selected' : '' ?>>User</option>
-        </select>
-
-        <button type="submit">Filter</button>
-    </form>
-
-    <!-- users Table -->
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Allergen</th>
-            <th>Role</th>
-            <th>Actions</th>
-        </tr>
-        <?php while ($user = mysqli_fetch_assoc($usersResult)): ?>
-            <tr>
-                <td><?= $user['id'] ?></td>
-                <td><?= $user['first_name'] ?></td>
-                <td><?= $user['last_name'] ?></td>
-                <td><?= $user['email'] ?></td>
-                <td><?= $user['allergen'] ?: 'None' ?></td>
-                <td><?= $user['role'] ?></td>
-                <td>
-                    <a href="edit_user.php?id=<?= $user['id'] ?>">Edit</a> | 
-                    <a href="delete_user.php?id=<?= $user['id'] ?>" onclick="return confirm('Are you sure?')">Delete</a>
-                </td>
-            </tr>
-        <?php endwhile; ?>
-    </table>
-
-    <!-- Manage Menu -->
-    <h3>Manage Menu</h3>
-
-    <!-- Add Menu -->
-    <a href="add_menu.php">Add Menu Item</a>
-
-    <!-- Menu Filter -->
-    <form method="GET" action="admin_dashboard.php">
-        <label for="restaurant">Filter by Restaurant:</label>
-        <select name="restaurant">
-            <option value="">All</option>
-            <?php
-            $restaurantQuery = "SELECT DISTINCT restaurant_name FROM menu";
-            $restaurantResult = mysqli_query($conn, $restaurantQuery);
-            while ($row = mysqli_fetch_assoc($restaurantResult)) {
-                $selected = ($_GET['restaurant'] ?? '') == $row['restaurant_name'] ? 'selected' : '';
-                echo "<option value='{$row['restaurant_name']}' $selected>{$row['restaurant_name']}</option>";
-            }
-            ?>
-        </select>
-
-        <label for="allergen">Filter by Allergen:</label>
-        <select name="allergen">
-            <option value="">All</option>
-            <?php
-            $allergenQuery = "SELECT DISTINCT allergen FROM menu";
-            $allergenResult = mysqli_query($conn, $allergenQuery);
-            while ($row = mysqli_fetch_assoc($allergenResult)) {
-                $selected = ($_GET['allergen'] ?? '') == $row['allergen'] ? 'selected' : '';
-                echo "<option value='{$row['allergen']}' $selected>{$row['allergen']}</option>";
-            }
-            ?>
-        </select>
-
-        <button type="submit">Filter</button>
-    </form>
-
-    <!-- Menu Table -->
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>Restaurant</th>
-            <th>Food</th>
-            <th>Allergen</th>
-            <th>Description</th>
-            <th>Actions</th>
-        </tr>
-        <?php while ($menu = mysqli_fetch_assoc($menuResult)): ?>
-            <tr>
-                <td><?= $menu['id'] ?></td>
-                <td><?= $menu['restaurant_name'] ?></td>
-                <td><?= $menu['food_name'] ?></td>
-                <td><?= $menu['allergen'] ?></td>
-                <td><?= $menu['description'] ?></td>
-                <td>
-                    <a href="edit_menu.php?id=<?= $menu['id'] ?>">Edit</a> | 
-                    <a href="delete_menu.php?id=<?= $menu['id'] ?>" onclick="return confirm('Are you sure?')">Delete</a>
-                </td>
-            </tr>
-        <?php endwhile; ?>
-    </table>
-
+    
+    <!-- Main Content Area -->
+    <div class="container container-wrapper">
+        <div class="dashboard-header">
+            <h2>Admin Dashboard</h2>
+        </div>
+        
+        <!-- Users Management Section -->
+        <div class="mb-5">
+            <h3 class="section-header">Manage Users</h3>
+            
+            <!-- Add User Button -->
+            <div class="mb-3">
+                <a href="add_user.php" class="btn btn-custom mb-3">
+                    <i class="fas fa-user-plus me-2"></i>Add User
+                </a>
+            </div>
+            
+            <!-- User Filter Form -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <form method="GET" action="admin_dashboard.php">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label for="search_user" class="form-label">Search Name:</label>
+                                <input type="text" class="form-control" name="search_user" 
+                                       placeholder="Enter first or last name" 
+                                       value="<?= htmlspecialchars($_GET['search_user'] ?? '') ?>">
+                            </div>
+                            
+                            <div class="col-md-3">
+                                <label for="user_allergen" class="form-label">Filter by Allergen:</label>
+                                <select class="form-select" name="user_allergen">
+                                    <option value="">All</option>
+                                    <?php while ($row = mysqli_fetch_assoc($allergenResult)): ?>
+                                        <?php $selected = ($_GET['user_allergen'] ?? '') == $row['allergen'] ? 'selected' : ''; ?>
+                                        <option value="<?= htmlspecialchars($row['allergen']) ?>" <?= $selected ?>>
+                                            <?= htmlspecialchars($row['allergen']) ?>
+                                        </option>
+                                    <?php endwhile; ?>
+                                </select>
+                            </div>
+                            
+                            <div class="col-md-3">
+                                <label for="user_role" class="form-label">Filter by Role:</label>
+                                <select class="form-select" name="user_role">
+                                    <option value="">All</option>
+                                    <option value="admin" <?= ($_GET['user_role'] ?? '') == 'admin' ? 'selected' : '' ?>>Admin</option>
+                                    <option value="user" <?= ($_GET['user_role'] ?? '') == 'user' ? 'selected' : '' ?>>User</option>
+                                </select>
+                            </div>
+                            
+                            <div class="col-md-2 d-flex align-items-end">
+                                <button type="submit" class="btn btn-custom w-100">
+                                    <i class="fas fa-filter me-2"></i>Filter
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Users Table -->
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Allergen</th>
+                            <th>Role</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (mysqli_num_rows($usersResult) > 0): ?>
+                            <?php while ($user = mysqli_fetch_assoc($usersResult)): ?>
+                                <tr>
+                                    <td><?= $user['id'] ?></td>
+                                    <td><?= htmlspecialchars($user['first_name']) ?></td>
+                                    <td><?= htmlspecialchars($user['last_name']) ?></td>
+                                    <td><?= htmlspecialchars($user['email']) ?></td>
+                                    <td><?= htmlspecialchars($user['allergen'] ?: 'None') ?></td>
+                                    <td><?= htmlspecialchars($user['role']) ?></td>
+                                    <td>
+                                        <a href="edit_user.php?id=<?= $user['id'] ?>" class="action-link">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </a>
+                                        <a href="delete_user.php?id=<?= $user['id'] ?>" 
+                                           class="action-link text-danger"
+                                           onclick="return confirm('Are you sure you want to delete this user?')">
+                                            <i class="fas fa-trash"></i> Delete
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php endwhile; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="7" class="text-center">No users found</td>
+                            </tr>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Menu Management Section -->
+        <div class="mb-5">
+            <h3 class="section-header">Manage Menu</h3>
+            
+            <!-- Add Menu Button -->
+            <div class="mb-3">
+                <a href="add_menu.php" class="btn btn-custom mb-3">
+                    <i class="fas fa-utensils me-2"></i>Add Menu Item
+                </a>
+            </div>
+            
+            <!-- Menu Filter Form -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <form method="GET" action="admin_dashboard.php">
+                        <div class="row g-3">
+                            <div class="col-md-5">
+                                <label for="restaurant" class="form-label">Filter by Restaurant:</label>
+                                <select class="form-select" name="restaurant">
+                                    <option value="">All</option>
+                                    <?php mysqli_data_seek($restaurantResult, 0); ?>
+                                    <?php while ($row = mysqli_fetch_assoc($restaurantResult)): ?>
+                                        <?php $selected = ($_GET['restaurant'] ?? '') == $row['restaurant_name'] ? 'selected' : ''; ?>
+                                        <option value="<?= htmlspecialchars($row['restaurant_name']) ?>" <?= $selected ?>>
+                                            <?= htmlspecialchars($row['restaurant_name']) ?>
+                                        </option>
+                                    <?php endwhile; ?>
+                                </select>
+                            </div>
+                            
+                            <div class="col-md-5">
+                                <label for="allergen" class="form-label">Filter by Allergen:</label>
+                                <select class="form-select" name="allergen">
+                                    <option value="">All</option>
+                                    <?php while ($row = mysqli_fetch_assoc($menuAllergenResult)): ?>
+                                        <?php $selected = ($_GET['allergen'] ?? '') == $row['allergen'] ? 'selected' : ''; ?>
+                                        <option value="<?= htmlspecialchars($row['allergen']) ?>" <?= $selected ?>>
+                                            <?= htmlspecialchars($row['allergen']) ?>
+                                        </option>
+                                    <?php endwhile; ?>
+                                </select>
+                            </div>
+                            
+                            <div class="col-md-2 d-flex align-items-end">
+                                <button type="submit" class="btn btn-custom w-100">
+                                    <i class="fas fa-filter me-2"></i>Filter
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Menu Table -->
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Restaurant</th>
+                            <th>Food</th>
+                            <th>Allergen</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (mysqli_num_rows($menuResult) > 0): ?>
+                            <?php while ($menu = mysqli_fetch_assoc($menuResult)): ?>
+                                <tr>
+                                    <td><?= $menu['id'] ?></td>
+                                    <td><?= htmlspecialchars($menu['restaurant_name']) ?></td>
+                                    <td><?= htmlspecialchars($menu['food_name']) ?></td>
+                                    <td><?= htmlspecialchars($menu['allergen']) ?></td>
+                                    <td><?= htmlspecialchars($menu['description']) ?></td>
+                                    <td>
+                                        <a href="edit_menu.php?id=<?= $menu['id'] ?>" class="action-link">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </a>
+                                        <a href="delete_menu.php?id=<?= $menu['id'] ?>" 
+                                           class="action-link text-danger"
+                                           onclick="return confirm('Are you sure you want to delete this menu item?')">
+                                            <i class="fas fa-trash"></i> Delete
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php endwhile; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="6" class="text-center">No menu items found</td>
+                            </tr>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3">
+        <div class="container">
+            <p class="mb-0">&copy; <?= date('Y') ?> Food AI Admin Dashboard. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 </html>
