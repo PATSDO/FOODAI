@@ -11,6 +11,7 @@ Step 1: Download the GitHub Repository Files
 => After downloading, extract the files
 
 
+
 Step 2: Download Ollama Model on your Local Computer
 
 => Visit the Ollama website using this link: https://ollama.com/library/llama3.2:1b
@@ -18,11 +19,13 @@ Step 2: Download Ollama Model on your Local Computer
 => After downloading, go to your Computer's Terminal/Command Prompt and run the command "ollama run llama3.2:1b"
 
 
+
 Step 3: Download XAMPP Control Panel
 
 => Visit the XAMPP website using this link: https://www.apachefriends.org/download.html
 
 => After downloading, complete the installation process with the XAMPP installer
+
 
 
 Step 4: Transfer GitHub Files to the "htdocs" Folder
@@ -36,7 +39,8 @@ Step 4: Transfer GitHub Files to the "htdocs" Folder
 => The file path should look something like this: C:\xampp\htdocs\FOODAI\
 
 
-Step 4: Setup MySQL Database using PHPmyadmin
+
+Step 5: Setup MySQL Database using PHPmyadmin
 
 => In the XAMPP Control Panel, start the "Apache" and "MySQL" services
 
@@ -45,7 +49,8 @@ Step 4: Setup MySQL Database using PHPmyadmin
 => In the dashboard, press the "Import" button and import the SQL file found in the FOODAI folder named "food_ai_db"
 
 
-Step 5: Start the FOODAI Server
+
+Step 6: Start the FOODAI Server
 
 => Open a new Terminal/Command Prompt on your Computer
 
