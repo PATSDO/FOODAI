@@ -3,13 +3,20 @@ session_start();
 include 'db_connection.php'; 
 // Stops the user in interacting with FAI
 if (!isset($_SESSION['first_name'])) {
-    echo "<div style='text-align: center; padding: 50px; font-size: 24px;'>
-            <p>Login to chat with FAI</p>
-            <a href='index.php'><button style='font-size: 18px; padding: 10px 20px;' class='btn btn-primary'>Back to Home</button></a>
-            <a href='login.php'><button style='font-size: 18px; padding: 10px 20px;' class='btn btn-primary'>Login</button></a>
+    echo "<div style='display: flex; justify-content: center; align-items: center; height: 100vh; 
+                background: url(\"img/warningbg.png\") no-repeat center center; 
+                background-size: cover;'>
+            <div style='text-align: center; padding: 30px; border-radius: 10px; background: rgba(255, 255, 255, 0.9); 
+                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); max-width: 400px;'>
+                <h2 style='color: #721c24; margin-bottom: 15px;'>Access Denied</h2>
+                <p style='color: #721c24; font-size: 18px; margin-bottom: 20px;'>Login to chat with FAI</p>
+                <a href='index.php'><button style='font-size: 18px; padding: 10px 20px; margin: 5px;' class='btn btn-secondary'>Back to Home</button></a>
+                <a href='login.php'><button style='font-size: 18px; padding: 10px 20px; margin: 5px;' class='btn btn-primary'>Login</button></a>
+            </div>
           </div>";
     exit(); // Stop further execution
 }
+?>
 
 // Get user info
 $user_id = $_SESSION['user_id'];
