@@ -1,10 +1,15 @@
 FOODAI INSTALLATION GUIDE
 -------------------------
 Step 1: Download the GitHub Repository Files
+
 => Visit the Repository using this link: https://github.com/PATSDO/FOODAI
+
 => In the main page, click the green dropdown button labeled "Code"
+
 => Select "Download ZIP" to start the Download process
+
 => After downloading, extract the files
+
 
 Step 2: Download Ollama Model on your Local Computer
 => Visit the Ollama website using this link: https://ollama.com/library/llama3.2:1b
