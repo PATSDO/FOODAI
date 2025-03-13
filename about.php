@@ -32,249 +32,632 @@ if(isset($conn)) {
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
-    <title>FAI Chatbot - FAI</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-    <link href="https://img.icons8.com/ios/50/null/food-bar.png" rel="icon">
-
-    <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
-
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Oswald:wght@500;600;700&family=Pacifico&display=swap" rel="stylesheet"> 
-
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- Libraries Stylesheet -->
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with FAI</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            background: url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?ixlib=rb-1.2.1&auto=format&fit=crop&w=1951&q=80') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: -1;
+        }
+        
+        .chat-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 85vh;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        .chat-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .chat-header h2 {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 15px;
+            border-radius: 50px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 2px solid white;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            background: url('https://www.transparenttextures.com/patterns/cubes.png');
+        }
+        
+        .message {
+            max-width: 75%;
+            padding: 15px 20px;
+            border-radius: 20px;
+            position: relative;
+            word-wrap: break-word;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .message-user {
+            background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+            color: #333;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+            margin-right: 10px;
+        }
+        
+        .message-ai {
+            background: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
+            color: #333;
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+            margin-left: 10px;
+        }
+        
+        .message::before {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            bottom: 0;
+        }
+        
+        .message-user::before {
+            right: -10px;
+            background: radial-gradient(circle at top right, transparent 70%, #c2e9fb 71%);
+        }
+        
+        .message-ai::before {
+            left: -10px;
+            background: radial-gradient(circle at top left, transparent 70%, #96e6a1 71%);
+        }
+        
+        .message-time {
+            font-size: 0.75rem;
+            color: rgba(0, 0, 0, 0.5);
+            position: absolute;
+            bottom: -20px;
+            right: 10px;
+        }
+        
+        .chat-input {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        .input-group {
+            position: relative;
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 5px;
+        }
+        
+        .form-control {
+            border-radius: 30px;
+            padding: 15px 25px;
+            font-size: 1rem;
+            border: none;
+            background: transparent;
+        }
+        
+        .form-control:focus {
+            box-shadow: none;
+        }
+        
+        .btn-send {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-send:hover {
+            transform: translateY(-50%) scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+        }
+        
+        .typing-indicator {
+            display: flex;
+            padding: 15px;
+            gap: 5px;
+            align-self: flex-start;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            margin-left: 10px;
+        }
+        
+        .typing-dot {
+            width: 10px;
+            height: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            animation: typing-animation 1.5s infinite ease-in-out;
+        }
+        
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes typing-animation {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-10px); }
+        }
+        
+        .chat-options {
+            padding: 0 20px 10px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .option-btn {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(5px);
+            border: none;
+            border-radius: 20px;
+            padding: 8px 20px;
+            color: #666;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .option-btn:hover {
+            background: rgba(255, 255, 255, 0.95);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        .option-btn i {
+            margin-right: 5px;
+        }
+        
+        .navbar {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .navbar-brand {
+            color: white;
+            font-weight: bold;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .navbar-brand i {
+            margin-right: 10px;
+            font-size: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 8px 15px;
+            margin: 0 5px;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: white;
+        }
+        
+        .nav-link:hover::after {
+            width: 80%;
+        }
+        
+        /* Custom scrollbar */
+        .chat-messages::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .chat-messages::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 10px;
+        }
+        
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+        }
+        
+        /* Floating particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+        
+        /* For mobile responsiveness */
+        @media (max-width: 768px) {
+            .chat-container {
+                margin: 10px;
+                height: calc(100vh - 20px);
+                border-radius: 15px;
+            }
+            
+            .chat-header {
+                border-radius: 15px 15px 0 0;
+                padding: 15px;
+            }
+            
+            .message {
+                max-width: 85%;
+            }
+            
+            .navbar-brand {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
-
 <body>
-     <!-- Topbar Start -->
-     <div class="container-fluid px-0 d-none d-lg-block">
-        <div class="row gx-0">
-            <div class="col-lg-4 text-center bg-secondary py-3">
-                <div class="d-inline-flex align-items-center justify-content-center">
-                    <i class="bi bi-envelope fs-1 text-primary me-3"></i>
-                    <div class="text-start">
-                        <h6 style="font-family: Times New Roman" class="text-uppercase mb-1">Email Us</h6>
-                        <span>foodai@gmail.com</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 text-center bg-primary border-inner py-4">
-                <div class="d-inline-flex align-items-center justify-content-center">
-                    <a href="index.php" class="navbar-brand">
-                        <h1 style="font-family: Times New Roman" class="m-0 text-uppercase text-white"></i>Food AI</h1>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-4 text-center bg-secondary py-3">
-                <div class="d-inline-flex align-items-center justify-content-center">
-                    <div class="text-start">
-                        <?php if (isset($_SESSION['first_name'])): ?>
-                            <h6 class="text-black">Welcome, <?php echo htmlspecialchars($_SESSION['first_name']); ?>!</h6>
-                            <a href="logout.php"><button style="font-family: Times New Roman" type="button" class="btn btn-danger btn-lg">Logout</button></a>
-                        <?php else: ?>
-                            <a href="register.php"><button style="font-family: Times New Roman" type="button" class="btn btn-primary btn-lg">Register</button></a>
-                            <a href="login.php"><button style="font-family: Times New Roman" type="button" class="btn btn-primary btn-lg">Login</button></a>
-                        <?php endif; ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Topbar End -->
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
 
-    <!-- Navbar Start -->
-    <nav class="navbar navbar-expand-lg bg-dark navbar-dark shadow-sm py-3 py-lg-0 px-3 px-lg-0">
-        <a href="index.php" class="navbar-brand d-block d-lg-none">
-            <h1 class="m-0 text-uppercase text-white"><i class=" text-primary me-3"></i>FAI</h1>
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav ms-auto mx-lg-auto py-0">
-                <a style="font-family: Times New Roman" href="index.php" class="nav-item nav-link">Home</a>
-                <a style="font-family: Times New Roman"  href="about.php" class="nav-item nav-link active">FAI</a>
-                <a style="font-family: Times New Roman"  href="menu.php" class="nav-item nav-link">Jollibee</a>
-                <a style="font-family: Times New Roman"  href="menu2.php" class="nav-item nav-link">McDonald's</a>
-                <a style="font-family: Times New Roman"  href="menu3.php" class="nav-item nav-link">KFC</a>
-                <div class="nav-item dropdown">
-                    <a style="font-family: Times New Roman"  href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Orders</a>
-                    <div class="dropdown-menu m-0">
-                        <a href="service.php" class="dropdown-item">History</a>
-                        <a href="testimonial.php" class="dropdown-item">Reviews</a>
-                    </div>
-                </div>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="index.php">
+                <i class="fas fa-robot"></i> FAI Chat
+            </a>
+            <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php"><i class="fas fa-home"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.php"><i class="fas fa-user"></i> Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
-    <!-- Navbar End --><!-- Changed to php -->
 
-    <!-- Page Header Start -->
-    <div class="container-fluid bg-dark bg-img p-5 mb-5">
-        <div class="row">
-            <div class="col-12 text-center">
-                <h1 style="font-family: Times New Roman"class="display-4 text-uppercase text-white">FAI</h1>
+    <!-- Chat Container -->
+    <div class="container flex-grow-1 d-flex align-items-center">
+        <div class="chat-container">
+            <div class="chat-header">
+                <h2><i class="fas fa-comment-dots me-2"></i> Chat with FAI</h2>
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <?php echo substr($first_name, 0, 1); ?>
+                    </div>
+                    <span><?php echo $first_name; ?></span>
+                </div>
             </div>
-        </div>
-    </div>
-    <!-- Page Header End -->
-
-
-    <!-- About Start -->
-    <div class="container-fluid pt-5">
-        <div class="container">
-            <div class="section-title position-relative text-center mx-auto mb-5 pb-3" style="max-width: 600px;">
-                <h1 class="text-primary font-secondary">Hello I am FAI!</h1>
-                <h4 class="display-6 text-uppercase">I'll be your assistant today.</h4>
-            </div>
-        </div>
-    </div>
-    <!-- About End -->
-
-
-     <!-- Chatbot Section -->
-    <h2 class="text-center text-primary">AI Chatbot</h2>
-    <div class="chat-container border rounded p-3 bg-dark" style="max-width: 800px; margin: auto;">
-        <div class="chat-box" id="chat-box" style="height: 300px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; background: white;"></div>
-        <div class="d-flex mt-2">
-            <input type="text" id="user-input" class="form-control me-2" placeholder="Type a message..." onkeypress="handleKeyPress(event)">
-            <button class="btn btn-primary" onclick="sendMessage()">Send</button>
-        </div>
-    </div>
-
-    <script>
-        window.onload = function() {
-            const chatBox = document.getElementById("chat-box");
-            chatBox.innerHTML += `<div class='text-start fai-text mb-2'><strong>fai:</strong> Hi there! I'm Fai, your Food Allergy Assistant. I can check menu items from Jollibee, McDonald's, and KFC against your allergies. How can I help?</div>`;
-        };
-
-        async function sendMessage() {
-            const inputField = document.getElementById("user-input");
-            const message = inputField.value.trim();
-            if (!message) return;
-
-            const chatBox = document.getElementById("chat-box");
-            chatBox.innerHTML += `<div class='text-end text-dark mb-2'><strong>You:</strong> ${message}</div>`;
-            inputField.value = "";
             
-            try {
-                const response = await fetch("http://localhost:5000/chat", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ message: message })
-                });
-
-                const data = await response.json();
-                chatBox.innerHTML += `<div class='text-start fai-text mb-2'><strong>fai:</strong> ${data.message}</div>`;
-            } catch (error) {
-                chatBox.innerHTML += `<div class='text-start text-danger mb-2'><strong>fai:</strong> Error connecting to assistant</div>`;
-            }
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }
-
-        function handleKeyPress(event) {
-            if (event.key === "Enter") sendMessage();
-        }
-    </script>
-
-   
-
- <!-- Footer Start -->
- <div class="container-fluid bg-img text-secondary" style="margin-top: 90px">
-        <div class="container">
-            <div class="row gx-5">
-                <div class="col-lg-4 col-md-6 mb-lg-n5">
-                    <div class="d-flex flex-column align-items-center justify-content-center text-center h-100 bg-primary border-inner p-4">
-                        <a href="index.html" class="navbar-brand">
-                            <h1 class="m-0 text-uppercase text-white"></i>Food AI</h1>
-                        </a>
-                        <p class="mt-3">Discover the best local dining experiences tailored just for you! FAI (Food AI) is an intelligent food recommendation system that uses artificial intelligence to suggest personalized meal options based on your preferences, dietary needs, and real-time availability from nearby fast food restaurants.</p>
-                    </div>
+            <div class="chat-messages" id="chatMessages">
+                <!-- Welcome message -->
+                <div class="message message-ai">
+                    <p>Hello <?php echo $first_name; ?>! How can I assist you today? 👋</p>
+                    <span class="message-time"><?php echo date('h:i A'); ?></span>
                 </div>
-                <div class="col-lg-8 col-md-6">
-                    <div class="row gx-5">
-                        <div class="col-lg-4 col-md-12 pt-5 mb-5">
-                            <h4 class="text-primary text-uppercase mb-4">Get In Touch</h4>
-                            <div class="d-flex mb-2">
-                                <i class="bi bi-geo-alt text-primary me-2"></i>
-                                <p class="mb-0">123 Street, Manila</p>
-                            </div>
-                            <div class="d-flex mb-2">
-                                <i class="bi bi-envelope-open text-primary me-2"></i>
-                                <p class="mb-0">foodai@gmail.com</p>
-                            </div>
-                            <div class="d-flex mb-2">
-                                <i class="bi bi-telephone text-primary me-2"></i>
-                                <p class="mb-0">+012 345 67890</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-12 pt-0 pt-lg-5 mb-5">
-                            <h4 class="text-primary text-uppercase mb-4">Quick Links</h4>
-                            <div class="d-flex flex-column justify-content-start">
-                                <a class="text-secondary mb-2" href="index.php"><i class="bi bi-arrow-right text-primary me-2"></i>Home</a>
-                                <a class="text-secondary mb-2" href="about.php"><i class="bi bi-arrow-right text-primary me-2"></i>FOODAI</a>
-                                <a class="text-secondary mb-2" href="menu.php"><i class="bi bi-arrow-right text-primary me-2"></i>Jollibee</a>
-                                <a class="text-secondary mb-2" href="menu2.php"><i class="bi bi-arrow-right text-primary me-2"></i>McDonald's</a>
-                                <a class="text-secondary mb-2" href="menu3.php"><i class="bi bi-arrow-right text-primary me-2"></i>KFC</a>
-                                <a class="text-secondary mb-2" href="service.php"><i class="bi bi-arrow-right text-primary me-2"></i>History</a>
-                                <a class="text-secondary mb-2" href="testimonial.php"><i class="bi bi-arrow-right text-primary me-2"></i>Reviews</a>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-12 pt-0 pt-lg-5 mb-5">
-                            <h4 class="text-primary text-uppercase mb-4">Email Us</h4>
-                            <p>foodai@gmail.com</p>
-                            <form action="">
-                                <div class="input-group">
-                                    <input type="text" class="form-control border-white p-3" placeholder="Your Email">
-                                    <button class="btn btn-primary">Sign Up</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+                
+                <!-- Load chat history if available -->
+                <?php foreach($chat_history as $chat): ?>
+                <div class="message message-user">
+                    <p><?php echo htmlspecialchars($chat['message']); ?></p>
+                    <span class="message-time"><?php echo date('h:i A', strtotime($chat['timestamp'])); ?></span>
                 </div>
+                <div class="message message-ai">
+                    <p><?php echo nl2br(htmlspecialchars($chat['response'])); ?></p>
+                    <span class="message-time"><?php echo date('h:i A', strtotime($chat['timestamp'])); ?></span>
+                </div>
+                <?php endforeach; ?>
+            </div>
+            
+            <div class="chat-options">
+                <button class="option-btn"><i class="fas fa-trash-alt"></i> Clear Chat</button>
+                <button class="option-btn"><i class="fas fa-question-circle"></i> Help</button>
+                <button class="option-btn"><i class="fas fa-download"></i> Save Chat</button>
+            </div>
+            
+            <div class="chat-input">
+                <form id="chatForm" action="process_chat.php" method="post">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="messageInput" name="message" placeholder="Type your message here..." required>
+                        <button type="submit" class="btn btn-send">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-    <div class="container-fluid text-secondary py-4" style="background: #111111;">
-        <div class="container text-center">
-            <p class="mb-0">&copy; <a class="text-white border-bottom" href="index.php">Food AI</a>. by Cipriano, Bandal, De Ocampo, Gesmundo, & Pua</p>
-        </div>
-    </div>
-    <!-- Footer End -->
 
-
-
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-primary border-inner py-3 fs-4 back-to-top"><i class="bi bi-arrow-up"></i></a>
-
-
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/counterup/counterup.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Create floating particles
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 20;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const size = Math.random() * 20 + 5;
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.opacity = Math.random() * 0.5;
+                particle.style.animationDuration = `${Math.random() * 20 + 10}s`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                particlesContainer.appendChild(particle);
+            }
+            
+            // Scroll to bottom of chat
+            function scrollToBottom() {
+                const chatMessages = document.getElementById('chatMessages');
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            scrollToBottom();
+            
+            // Submit form using AJAX
+            $("#chatForm").submit(function(e) {
+                e.preventDefault();
+                
+                const messageInput = $("#messageInput");
+                const message = messageInput.val().trim();
+                
+                if (message === '') return;
+                
+                // Add user message to chat
+                const currentTime = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                $("#chatMessages").append(`
+                    <div class="message message-user">
+                        <p>${message}</p>
+                        <span class="message-time">${currentTime}</span>
+                    </div>
+                `);
+                
+                // Add typing indicator
+                $("#chatMessages").append(`
+                    <div class="typing-indicator" id="typingIndicator">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                `);
+                
+                scrollToBottom();
+                messageInput.val('').focus();
+                
+                // Send message to server
+                $.ajax({
+                    url: "process_chat.php",
+                    type: "POST",
+                    data: { message: message },
+                    success: function(response) {
+                        // Remove typing indicator
+                        $("#typingIndicator").remove();
+                        
+                        // Add AI response
+                        $("#chatMessages").append(`
+                            <div class="message message-ai">
+                                <p>${response}</p>
+                                <span class="message-time">${currentTime}</span>
+                            </div>
+                        `);
+                        
+                        scrollToBottom();
+                    },
+                    error: function() {
+                        // Remove typing indicator
+                        $("#typingIndicator").remove();
+                        
+                        // Show error message
+                        $("#chatMessages").append(`
+                            <div class="message message-ai">
+                                <p>Sorry, I'm having trouble connecting. Please try again.</p>
+                                <span class="message-time">${currentTime}</span>
+                            </div>
+                        `);
+                        
+                        scrollToBottom();
+                    }
+                });
+            });
+            
+            // Clear chat functionality
+            $(".option-btn").eq(0).click(function() {
+                if(confirm("Are you sure you want to clear this chat?")) {
+                    $.ajax({
+                        url: "clear_chat.php",
+                        type: "POST",
+                        success: function() {
+                            // Clear chat messages except the welcome message
+                            $("#chatMessages").html(`
+                                <div class="message message-ai">
+                                    <p>Hello <?php echo $first_name; ?>! How can I assist you today? 👋</p>
+                                    <span class="message-time">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+                                </div>
+                            `);
+                        }
+                    });
+                }
+            });
+            
+            // Help button functionality
+            $(".option-btn").eq(1).click(function() {
+                $("#chatMessages").append(`
+                    <div class="message message-ai">
+                        <p>Here are some things you can ask me about:<br>
+                        - General information and knowledge 📚<br>
+                        - Writing assistance ✍️<br>
+                        - Coding help 💻<br>
+                        - Math and problem solving 🧮<br>
+                        - Creative ideas 💡<br>
+                        <br>Just type your question in the chat box below!</p>
+                        <span class="message-time">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+                    </div>
+                `);
+                scrollToBottom();
+            });
+            
+            // Save chat functionality
+            $(".option-btn").eq(2).click(function() {
+                $.ajax({
+                    url: "export_chat.php",
+                    type: "POST",
+                    success: function(response) {
+                        // Create a download link
+                        const blob = new Blob([response], {type: 'text/plain'});
+                        const url = window.URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.style.display = 'none';
+                        a.href = url;
+                        a.download = 'chat_history.txt';
+                        document.body.appendChild(a);
+                        a.click();
+                        window.URL.revokeObjectURL(url);
+                        
+                        // Show success message
+                        $("#chatMessages").append(`
+                            <div class="message message-ai">
+                                <p>Chat history has been saved to your downloads folder! 📥</p>
+                                <span class="message-time">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+                            </div>
+                        `);
+                        scrollToBottom();
+                    },
+                    error: function() {
+                        // Show error message
+                        $("#chatMessages").append(`
+                            <div class="message message-ai">
+                                <p>Sorry, I couldn't save the chat history. Please try again later.</p>
+                                <span class="message-time">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+                            </div>
+                        `);
+                        scrollToBottom();
+                    }
+                });
+            });
+        });
+    </script>
 </body>
-
 </html>
