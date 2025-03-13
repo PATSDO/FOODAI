@@ -65,3 +65,8 @@ Step 6: Open the Website
 
 => This should open the FOODAI website's home page
 
+
+**YOUTUBE DEMO LINK:**
+
+https://youtu.be/-xXioMWbWQo
+
