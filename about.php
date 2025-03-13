@@ -1,7 +1,6 @@
 <?php 
 session_start();
 include 'db_connection.php'; 
-
 // Stops the user in interacting with FAI
 if (!isset($_SESSION['first_name'])) {
     echo "<div style='text-align: center; padding: 50px; font-size: 24px;'>
@@ -11,7 +10,25 @@ if (!isset($_SESSION['first_name'])) {
           </div>";
     exit(); // Stop further execution
 }
-?> 
+
+// Get user info
+$user_id = $_SESSION['user_id'];
+$first_name = $_SESSION['first_name'];
+
+// Get chat history if we want to display it
+$chat_history = [];
+if(isset($conn)) {
+    $query = "SELECT message, response, timestamp FROM chat_history WHERE user_id = ? ORDER BY timestamp ASC";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    while($row = $result->fetch_assoc()) {
+        $chat_history[] = $row;
+    }
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
